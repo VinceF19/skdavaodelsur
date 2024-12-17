@@ -33,14 +33,13 @@ const Footer = () => {
 
           <div className="col-md-4 mb-3">
             <iframe
-              title="Location Map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387190.27991401665!2d-74.25986472923103!3d40.69714942257381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sSK%20Federation%20Office!5e0!3m2!1sen!2sph!4v1699887631234"
+              src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d18846.731910029488!2d125.29961003156636!3d6.76530354091518!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sDavao-Cotabato%20Road%2C%20Digos-Sultan%20Kudarat%20Road%2C%20Mati%2C%20Digos%2C%20Philippines%2C%208002!5e0!3m2!1sen!2sus!4v1734457220068!5m2!1sen!2sus"
               width="100%"
               height="200"
               style={{ border: 0 }}
-              allowFullScreen=""
+              allowfullscreen=""
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
+              referrerpolicy="no-referrer-when-downgrade"
             ></iframe>
             <p className="mt-2">
               Davao-Cotabato Road, Digos-Sultan Kudarat Road, Mati, Digos,
