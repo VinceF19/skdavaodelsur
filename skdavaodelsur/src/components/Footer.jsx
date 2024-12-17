@@ -39,7 +39,7 @@ const Footer = () => {
               style={{ border: 0 }}
               allowfullscreen=""
               loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
+              referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
             <p className="mt-2">
               Davao-Cotabato Road, Digos-Sultan Kudarat Road, Mati, Digos,

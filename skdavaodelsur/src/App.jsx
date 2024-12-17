@@ -15,11 +15,11 @@ const App = () => {
     >
       <Navbar />
 
-      <div>
+      <div style={{ flex: "1", minHeight: "50%" }}>
         <HeroSection />
       </div>
 
-      <div>
+      <div style={{ flex: "0 0 40%", minHeight: "50%" }}>
         <Footer />
       </div>
     </div>
