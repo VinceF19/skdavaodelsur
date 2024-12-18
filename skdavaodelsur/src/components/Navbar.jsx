@@ -1,10 +1,13 @@
 const Navbar = () => {
   return (
-    <div className="d-flex justify-content-centers">
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <div>
+      <nav
+        className="navbar navbar-expand-lg navbar-dark px-5"
+        style={{ backgroundColor: "#960515" }}
+      >
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
-            Home
+            HOME
           </a>
           <button
             className="navbar-toggler"
@@ -18,23 +21,23 @@ const Navbar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul className="navbar-nav">
-              <li className="nav-item">
+            <ul className="navbar-nav w-100 d-flex justify-content-around">
+              <li className="nav-item flex-grow-1 text-center">
                 <a className="nav-link active" aria-current="page" href="#">
-                  Government
+                  GOVERNMENT
                 </a>
               </li>
-              <li className="nav-item">
+              <li className="nav-item flex-grow-1 text-center">
                 <a className="nav-link" href="#">
-                  News & Events
+                  NEWS AND EVENTS
                 </a>
               </li>
-              <li className="nav-item">
+              <li className="nav-item flex-grow-1 text-center">
                 <a className="nav-link" href="#">
-                  About us
+                  ABOUT US
                 </a>
               </li>
-              <li className="nav-item dropdown">
+              <li className="nav-item dropdown flex-grow-1 text-center">
                 <a
                   className="nav-link dropdown-toggle"
                   href="#"
@@ -43,7 +46,7 @@ const Navbar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Contact Us
+                  CONTACT US
                 </a>
                 <ul
                   className="dropdown-menu"
@@ -51,12 +54,12 @@ const Navbar = () => {
                 >
                   <li>
                     <a className="dropdown-item" href="#">
-                      Contact
+                      CONTACT
                     </a>
                   </li>
                   <li>
                     <a className="dropdown-item" href="#">
-                      Survey
+                      SURVEY
                     </a>
                   </li>
                 </ul>

@@ -2,6 +2,7 @@ import React from "react";
 import HeroSection from "./components/HeroSection";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import InfoBar from "./components/InfoBar";
 
 const App = () => {
   return (
@@ -18,7 +19,9 @@ const App = () => {
       <div style={{ flex: "1", minHeight: "50%" }}>
         <HeroSection />
       </div>
-
+      <div className="d-flex p-2">
+        <InfoBar />
+      </div>
       <div style={{ flex: "0 0 40%", minHeight: "50%" }}>
         <Footer />
       </div>
