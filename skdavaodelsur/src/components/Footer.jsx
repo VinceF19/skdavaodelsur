@@ -13,13 +13,12 @@ const Footer = () => {
         <div className="row justify-content-between">
           <div className="col-md-4 mb-3">
             <h5 className="fw-bold">SK PROVINCIAL FEDERATION</h5>
-            <p className="text-uppercase">Davao del Sur</p>
-            <p>For Inquiries / Complaints</p>
+            <p className="fw-lighter lh-1">Davao del Sur</p>
             <p className="mb-1">
-              <b>Contact Us</b>
+              <b className="text-uppercase fw-bold">Contact Us</b>
             </p>
-            <p>skdavaodelsur@gmail.com</p>
-            <p>
+            <p className="lh-1 fw-lighter">skdavaodelsur@gmail.com</p>
+            <p className="lh-1 fw-lighter">
               <a
                 href="https://www.facebook.com/SKFederationOfDavaoDelSur"
                 target="_blank"
@@ -46,28 +45,6 @@ const Footer = () => {
               Philippines, 8002
             </p>
           </div>
-        </div>
-
-        <div
-          className="text-center mt-4 pt-3"
-          style={{
-            borderTop: "1px solid rgba(255,255,255,0.2)",
-            fontSize: "0.875rem",
-          }}
-        >
-          <a href="#" className="text-white text-decoration-none me-3">
-            Privacy Policy
-          </a>
-          <a href="#" className="text-white text-decoration-none me-3">
-            Terms of Use
-          </a>
-          <a href="#" className="text-white text-decoration-none">
-            Accessibility Statement
-          </a>
-          <p className="mt-2 mb-0">
-            &copy; 2024 Sangguniang Kabataan Federation, Davao del Sur. All
-            rights reserved.
-          </p>
         </div>
       </div>
     </footer>
