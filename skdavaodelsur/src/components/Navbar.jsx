@@ -1,3 +1,6 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
   return (
     <div>
@@ -6,9 +9,9 @@ const Navbar = () => {
         style={{ backgroundColor: "#960515" }}
       >
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <Link className="navbar-brand" to="/">
             HOME
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -23,44 +26,44 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarNavDropdown">
             <ul className="navbar-nav w-100 d-flex justify-content-around">
               <li className="nav-item flex-grow-1 text-center">
-                <a className="nav-link active" aria-current="page" href="#">
+                <Link className="nav-link" to="/government">
                   GOVERNMENT
-                </a>
+                </Link>
               </li>
               <li className="nav-item flex-grow-1 text-center">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="/news-events">
                   NEWS AND EVENTS
-                </a>
+                </Link>
               </li>
               <li className="nav-item flex-grow-1 text-center">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="/about-us">
                   ABOUT US
-                </a>
+                </Link>
               </li>
               <li className="nav-item dropdown flex-grow-1 text-center">
-                <a
+                <Link
                   className="nav-link dropdown-toggle"
-                  href="#"
+                  to="#"
                   id="navbarDropdownMenuLink"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   CONTACT US
-                </a>
+                </Link>
                 <ul
                   className="dropdown-menu"
                   aria-labelledby="navbarDropdownMenuLink"
                 >
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <Link className="dropdown-item" to="/contact">
                       CONTACT
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="#">
+                    <Link className="dropdown-item" to="/survey">
                       SURVEY
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </li>

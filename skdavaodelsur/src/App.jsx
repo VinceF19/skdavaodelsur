@@ -1,31 +1,32 @@
 import React from "react";
-import HeroSection from "./components/HeroSection";
-import Footer from "./components/Footer";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import InfoBar from "./components/InfoBar";
+import Footer from "./components/Footer";
+import HomePage from "./pages/HomePage";
+import GovernmentPage from "./pages/GovernmentPage";
 
 const App = () => {
   return (
-    <div
-      className="d-flex flex-column"
-      style={{
-        height: "100vh",
-        margin: 0,
-        overflow: "hidden",
-      }}
-    >
-      <Navbar />
+    <Router>
+      <div
+        className="d-flex flex-column"
+        style={{
+          height: "100vh",
+          margin: 0,
+        }}
+      >
+        <div style={{ flex: "0 0 auto" }}>
+          <Navbar />
+        </div>
 
-      <div style={{ flex: "1", minHeight: "50%" }}>
-        <HeroSection />
+        <div style={{ flex: "1 0 auto" }}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/government" element={<GovernmentPage />} />
+          </Routes>
+        </div>
       </div>
-      <div className="d-flex p-2">
-        <InfoBar />
-      </div>
-      <div style={{ flex: "0 0 40%", minHeight: "50%" }}>
-        <Footer />
-      </div>
-    </div>
+    </Router>
   );
 };
 
