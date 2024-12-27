@@ -23,12 +23,7 @@ const GovernmentPage = () => {
           <InfoBar />
         </div>
       </div>
-
-      {/* Footer */}
-      <div style={{ flex: "0 0 auto" }}>
-        <Footer />
       </div>
-    </div>
   );
 };
 

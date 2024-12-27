@@ -5,10 +5,10 @@ const Navbar = () => {
   return (
     <div>
       <nav
-        className="navbar navbar-expand-lg navbar-dark px-5"
-        style={{ backgroundColor: "#960515" }}
+        className="navbar navbar-expand-lg navbar-dark px-5 justify-content-center"
+        style={{ backgroundColor: "#001540" }}
       >
-        <div className="container-fluid">
+        <div className="container-fluid align">
           <Link className="navbar-brand" to="/">
             HOME
           </Link>
