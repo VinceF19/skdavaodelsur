@@ -13,23 +13,25 @@ const App = () => {
       <div
         className="d-flex flex-column"
         style={{
-          minHeight: "100vh", // Ensure the body takes at least the full height of the viewport
+          height: "100vh",
           margin: 0,
         }}
       >
         {/* Navbar Section */}
-        <Navbar />
+        <Navbar style={{ flex: "0 0 auto" }} />
 
         {/* Main Content Section */}
-        <div style={{ flex: "1 0 auto" }}>
+        <div
+          style={{
+            flex: "1 1 auto",
+            overflow: "auto",
+          }}
+        >
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/government" element={<GovernmentPage />} />
           </Routes>
         </div>
-
-        {/* Footer Section */}
-        <Footer />
       </div>
     </Router>
   );
