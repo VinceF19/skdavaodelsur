@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import HomeBackground from "../assets/HomeBackground.png";
 
 const HeroSection = () => {
   const [selectedPerson, setSelectedPerson] = useState({
@@ -37,7 +38,7 @@ const HeroSection = () => {
     <div
       className="hero-section text-white d-flex p-4"
       style={{
-        backgroundImage: "url('https://via.placeholder.com/1920x600')",
+        backgroundImage: `url(${HomeBackground})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         height: "500px",
