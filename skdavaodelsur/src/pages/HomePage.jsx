@@ -1,5 +1,6 @@
 import React from "react";
 import HomeBackground from "../assets/HomeBackground.png";
+import HomeGIF from "../assets/HomeGIF.gif";
 import "./HomePage.css";
 
 const HomePage = () => {
@@ -102,6 +103,54 @@ const HomePage = () => {
               ))}
             </div>
           </div>
+        </div>
+      </div>
+      <div
+        style={{
+          position: "relative",
+          height: "50vh",
+          overflow: "hidden",
+        }}
+        className="d-flex justify-content-center align-items-center"
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundImage: `url(${HomeGIF})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "blur(25px)",
+            zIndex: 1,
+          }}
+        ></div>
+
+        <div
+          style={{
+            position: "relative",
+            zIndex: 2,
+            textAlign: "center",
+            color: "#fff",
+            fontFamily: "'Lobster', cursive",
+          }}
+        >
+          <h1 style={{ fontSize: "5rem", fontWeight: "bold" }}>Pasidungog</h1>
+          <p style={{ fontSize: "4rem", marginTop: "10px" }}>2024</p>
+          <a
+            href="#"
+            class="btn"
+            target="_blank"
+            style={{
+              fontFamily: "Josefin Sans",
+              background: "rgba(0, 21, 64, 1)",
+              color: "white",
+            }}
+          >
+            Watch Me
+          </a>
         </div>
       </div>
 

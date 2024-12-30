@@ -7,7 +7,7 @@ const Footer = () => {
       style={{
         backgroundColor: "#001540",
         padding: "2rem 1rem",
-        marginTop: "auto", // Ensures footer stays at the bottom of the page
+        marginTop: "auto",
       }}
     >
       <div className="container">
