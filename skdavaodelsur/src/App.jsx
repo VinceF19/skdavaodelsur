@@ -7,6 +7,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import HomePage from "./pages/HomePage";
 import GovernmentPage from "./pages/GovernmentPage";
 
+
 const App = () => {
   return (
     <Router>

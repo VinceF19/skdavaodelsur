@@ -1,8 +1,11 @@
 import React from "react";
 
+
 const Footer = () => {
   return (
+    
     <footer
+    
       className="text-white"
       style={{
         backgroundColor: "#001540",
@@ -10,6 +13,7 @@ const Footer = () => {
         marginTop: "auto",
       }}
     >
+      
       <div className="container-fluid" style={{ padding: "2rem" }}>
         <div className="row justify-content-between">
           {/* Left Section */}
@@ -18,19 +22,19 @@ const Footer = () => {
             <p className="fw-lighter lh-1">Davao del Sur</p>
             <div className="d-flex align-items-center mb-2">
               {/* Logo */}
-              <img
-                src="/path-to-your-logo.png"
-                alt="Logo"
+              <i 
+                className="fas fa-landmark" 
                 style={{
-                  width: "30px",
-                  height: "30px",
+                  fontSize: "30px",
+                  color: "white",
                   marginRight: "10px",
                 }}
-              />
+              ></i>
               <p className="fw-lighter m-0">
                 Davao-Cotabato Road, Digos-Sultan Kudarat Road, Mati, Digos,
                 Philippines, 8002
               </p>
+
             </div>
             <div className="d-flex justify-content-evenly align-items-center mb-3">
             <h9 className="fw-bold">Privacy Policy</h9>
@@ -51,10 +55,24 @@ const Footer = () => {
               <b className="text-uppercase fw-bold">Contact Us</b>
             </p>
             <p className="fw-lighter lh-1">
-              <b>Email:</b> skdavaodelsur@gmail.com
+            <i 
+                className="fas fa-envelope" 
+                style={{
+                  fontSize: "30px",
+                  color: "white",
+                  marginRight: "10px",
+                }}
+              ></i> skdavaodelsur@gmail.com
             </p>
             <p className="fw-lighter lh-1">
-              <b>Phone:</b> +63 992 883 7721
+            <i 
+                className="fas fa-phone" 
+                style={{
+                  fontSize: "30px",
+                  color: "white",
+                  marginRight: "10px",
+                }}
+              ></i> +63 992 883 7721
             </p>
             <p className="fw-lighter lh-1">
             <p className="lh-1 fw-lighter">
@@ -64,7 +82,14 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="text-white text-decoration-none"
               >
-                Facebook: facebook.com/SKFederationOfDavaoDelSur
+                <i 
+                className="fab fa-facebook-f" 
+                style={{
+                  fontSize: "30px",
+                  color: "white",
+                  marginRight: "10px",
+                }}
+              ></i> facebook.com/SKFederationOfDavaoDelSur
               </a>
             </p>
             </p>
