@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import HomePage from "./pages/HomePage";
 import GovernmentPage from "./pages/GovernmentPage";
+import NewsEvents from "./pages/NewsEvent";
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/government" element={<GovernmentPage />} />
+            <Route path="/newsandevents" element={<NewsEvents />} />
           </Routes>
         </div>
       </div>

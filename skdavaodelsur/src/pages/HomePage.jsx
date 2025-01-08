@@ -141,7 +141,7 @@ const HomePage = () => {
           <p style={{ fontSize: "4rem", marginTop: "10px" }}>2024</p>
           <a
             href="#"
-            class="btn"
+            className="btn"
             target="_blank"
             style={{
               fontFamily: "Josefin Sans",

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import HeroSection from "../components/HeroSection";
 import InfoBar from "../components/InfoBar";
 import Footer from "../components/Footer";
@@ -50,11 +50,13 @@ const GovernmentPage = () => {
     },
   ];
 
-  const data = category === "officials" ? officials : youthOrganizations;
+  const data = useMemo(() => {
+    return category === "officials" ? officials : youthOrganizations;
+  }, [category]);
 
   useEffect(() => {
     setSelectedData(data[0]);
-  }, [category, data]);
+  }, [data]);
 
   return (
     <div

@@ -31,7 +31,7 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="nav-item flex-grow-1 text-center">
-                <Link className="nav-link" to="/news-events">
+                <Link className="nav-link" to="/newsandevents">
                   NEWS AND EVENTS
                 </Link>
               </li>
