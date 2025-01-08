@@ -2,6 +2,7 @@ import React from "react";
 import HomeBackground from "../assets/HomeBackground.png";
 import HomeGIF from "../assets/HomeGIF.gif";
 import "./HomePage.css";
+import Footer from "../components/Footer";
 
 const HomePage = () => {
   return (
@@ -20,7 +21,7 @@ const HomePage = () => {
         <div
           style={{
             backgroundColor: "rgba(0, 0, 0, 0.6)",
-            padding: "20px",
+            padding: "40px",
             borderRadius: "10px",
             textAlign: "center",
           }}
@@ -28,7 +29,7 @@ const HomePage = () => {
           <h1 style={{ fontSize: "3rem", fontWeight: "bold" }}>
             SK Provincial Federation
           </h1>
-          <p style={{ fontSize: "1.5rem", marginTop: "10px" }}>Davao del Sur</p>
+          <h2 style={{ fontSize: "2rem", marginTop: "30px" }}>Davao del Sur</h2>
         </div>
       </div>
 
@@ -123,7 +124,7 @@ const HomePage = () => {
             backgroundImage: `url(${HomeGIF})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            filter: "blur(25px)",
+            // filter: "blur(25px)",
             zIndex: 1,
           }}
         ></div>
@@ -137,9 +138,9 @@ const HomePage = () => {
             fontFamily: "'Lobster', cursive",
           }}
         >
-          <h1 style={{ fontSize: "5rem", fontWeight: "bold" }}>Pasidungog</h1>
-          <p style={{ fontSize: "4rem", marginTop: "10px" }}>2024</p>
-          <a
+          {/* <h1 style={{ fontSize: "5rem", fontWeight: "bold" }}>Pasidungog</h1>
+          <p style={{ fontSize: "4rem", marginTop: "10px" }}>2024</p> */}
+          {/* <a
             href="#"
             className="btn"
             target="_blank"
@@ -150,27 +151,19 @@ const HomePage = () => {
             }}
           >
             Watch Me
-          </a>
+          </a> */}
         </div>
       </div>
 
-      {/* Footer Section */}
-      <footer
-        className="text-center text-white py-4"
-        style={{ backgroundColor: "#002855" }}
+      {/* Footer */}
+      <div
+        style={{
+          flex: "0 0 auto",
+          margin: 0,
+        }}
       >
-        <div className="container">
-          <p className="mb-0">
-            SK Provincial Federation | All rights reserved &copy; 2024
-          </p>
-          <p>
-            Contact Us:{" "}
-            <a href="mailto:info@skfederation.com" className="text-white">
-              info@skfederation.com
-            </a>
-          </p>
-        </div>
-      </footer>
+        <Footer />
+      </div>
     </div>
   );
 };

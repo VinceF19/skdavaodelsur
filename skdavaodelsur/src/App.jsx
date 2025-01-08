@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import GovernmentPage from "./pages/GovernmentPage";
 import NewsEvents from "./pages/NewsEvent";
 
+
 const App = () => {
   return (
     <Router>

@@ -1,25 +1,80 @@
 import React from "react";
 
+
 const Footer = () => {
   return (
+    
     <footer
+    
       className="text-white"
       style={{
         backgroundColor: "#001540",
-        padding: "2rem 1rem",
+        padding: "2rem 2rem",
         marginTop: "auto",
       }}
     >
-      <div className="container">
+      
+      <div className="container-fluid" style={{ padding: "2rem" }}>
         <div className="row justify-content-between">
           {/* Left Section */}
           <div className="col-md-4 mb-3">
             <h5 className="fw-bold">SK PROVINCIAL FEDERATION</h5>
             <p className="fw-lighter lh-1">Davao del Sur</p>
+            <div className="d-flex align-items-center mb-2">
+              {/* Logo */}
+              <i 
+                className="fas fa-landmark" 
+                style={{
+                  fontSize: "30px",
+                  color: "white",
+                  marginRight: "10px",
+                }}
+              ></i>
+              <p className="fw-lighter m-0">
+                Davao-Cotabato Road, Digos-Sultan Kudarat Road, Mati, Digos,
+                Philippines, 8002
+              </p>
+
+            </div>
+            <div className="d-flex justify-content-evenly align-items-center mb-3">
+            <h9 className="fw-bold">Privacy Policy</h9>
+            <h9 className="fw-bold">Terms of Use</h9>
+            <h9 className="fw-bold">Accessibility Statement</h9>
+            </div>
+            <p className="fw-lighter lh-1">2024 Sangguniang Kabataan Federation, Davao del Sur, All rights reserved.</p>
+
+          </div>
+
+          {/* Middle Section */}
+          <div className="col-md-4 mb-3">
+            <h5 className="fw-bold">Inquiries & Complaints</h5>
+            <p className="lh-1 fw-lighter">
+              If you have any inquiries or complaints:
+            </p>
             <p className="mb-1">
               <b className="text-uppercase fw-bold">Contact Us</b>
             </p>
-            <p className="lh-1 fw-lighter">skdavaodelsur@gmail.com</p>
+            <p className="fw-lighter lh-1">
+            <i 
+                className="fas fa-envelope" 
+                style={{
+                  fontSize: "30px",
+                  color: "white",
+                  marginRight: "10px",
+                }}
+              ></i> skdavaodelsur@gmail.com
+            </p>
+            <p className="fw-lighter lh-1">
+            <i 
+                className="fas fa-phone" 
+                style={{
+                  fontSize: "30px",
+                  color: "white",
+                  marginRight: "10px",
+                }}
+              ></i> +63 992 883 7721
+            </p>
+            <p className="fw-lighter lh-1">
             <p className="lh-1 fw-lighter">
               <a
                 href="https://www.facebook.com/SKFederationOfDavaoDelSur"
@@ -27,8 +82,16 @@ const Footer = () => {
                 rel="noopener noreferrer"
                 className="text-white text-decoration-none"
               >
-                facebook.com/SKFederationOfDavaoDelSur
+                <i 
+                className="fab fa-facebook-f" 
+                style={{
+                  fontSize: "30px",
+                  color: "white",
+                  marginRight: "10px",
+                }}
+              ></i> facebook.com/SKFederationOfDavaoDelSur
               </a>
+            </p>
             </p>
           </div>
 
@@ -43,10 +106,7 @@ const Footer = () => {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
-            <p className="mt-2">
-              Davao-Cotabato Road, Digos-Sultan Kudarat Road, Mati, Digos,
-              Philippines, 8002
-            </p>
+          
           </div>
         </div>
       </div>
