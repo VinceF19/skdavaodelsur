@@ -13,7 +13,7 @@ const NewsEvents = () => {
       try {
         const pageId = "105656204521453";
         const accessToken =
-          "EAAR8ZAstrHJEBO86wx2lMpeYxtnm2Mb4sop9LcL0wim8J6tCUMjQNPWPceleEYZBZBIhZBYd0c7XG0HMtFCwHSplvNfk1iPNZAAweILVN8bmfIZABsg39wV2y8dlzttiQgNXiJEfZC2Bp5aqbw1ZCZCAoMB7fWDyjo05grMq7dR4vIO71trBZCdPHLyawBMGu4JdnhOP0ijo1ILMTCQuLEHiel6Y8viyZAc3zxOGlyeZCdIZD"; // Replace with your actual token
+          "EAAR8ZAstrHJEBO86wx2lMpeYxtnm2Mb4sop9LcL0wim8J6tCUMjQNPWPceleEYZBZBIhZBYd0c7XG0HMtFCwHSplvNfk1iPNZAAweILVN8bmfIZABsg39wV2y8dlzttiQgNXiJEfZC2Bp5aqbw1ZCZCAoMB7fWDyjo05grMq7dR4vIO71trBZCdPHLyawBMGu4JdnhOP0ijo1ILMTCQuLEHiel6Y8viyZAc3zxOGlyeZCdIZD";
         const url = `https://graph.facebook.com/v17.0/${pageId}/posts?fields=message,created_time,attachments{media_type,media_url}&access_token=${accessToken}`;
         const response = await axios.get(url);
 
