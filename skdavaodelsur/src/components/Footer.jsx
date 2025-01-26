@@ -9,12 +9,12 @@ const Footer = () => {
       className="text-white"
       style={{
         backgroundColor: "#001540",
-        padding: "2rem 2rem",
+        padding: "1rem 1rem",
         marginTop: "auto",
       }}
     >
       
-      <div className="container-fluid" style={{ padding: "2rem" }}>
+      <div className="container-fluid" style={{ padding: "1rem" }}>
         <div className="row justify-content-between">
           {/* Left Section */}
           <div className="col-md-4 mb-3">
