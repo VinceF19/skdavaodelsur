@@ -41,31 +41,9 @@ const Navbar = () => {
                 </Link>
               </li>
               <li className="nav-item dropdown flex-grow-1 text-center">
-                <Link
-                  className="nav-link dropdown-toggle"
-                  to="#"
-                  id="navbarDropdownMenuLink"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
+                <Link className="nav-link dropdown-toggle" to="/contact-us">
                   CONTACT US
                 </Link>
-                <ul
-                  className="dropdown-menu"
-                  aria-labelledby="navbarDropdownMenuLink"
-                >
-                  <li>
-                    <Link className="dropdown-item" to="/contact">
-                      CONTACT
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to="/survey">
-                      SURVEY
-                    </Link>
-                  </li>
-                </ul>
               </li>
             </ul>
           </div>

@@ -6,7 +6,8 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import HomePage from "./pages/HomePage";
 import GovernmentPage from "./pages/GovernmentPage";
 import NewsEvents from "./pages/NewsEvent";
-
+import ContactUs from "./pages/ContactUs";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -32,8 +33,10 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/government" element={<GovernmentPage />} />
             <Route path="/newsandevents" element={<NewsEvents />} />
+            <Route path="/contact-us" element={<ContactUs />} />
           </Routes>
         </div>
+        <Footer />
       </div>
     </Router>
   );
