@@ -47,18 +47,21 @@
   padding: 8px 0;
   color: white;
   margin: 0;
-
   overflow: hidden;
-  text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
   -webkit-box-orient: vertical;
+  position: relative;
+}
+
+.see-more-text {
+  color: #ffcc00; /* Highlight color */
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .card.expanded .card-title {
   -webkit-line-clamp: unset;
-  line-clamp: unset;
   white-space: normal;
 }
 

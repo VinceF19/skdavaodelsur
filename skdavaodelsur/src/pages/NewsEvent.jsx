@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Footer from "../components/Footer";
 import "./NewsEvents.css";
@@ -8,6 +8,9 @@ const NewsEvents = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedCardIndex, setExpandedCardIndex] = useState(null);
+  const [overflowingTitles, setOverflowingTitles] = useState([]);
+
+  const titleRefs = useRef([]);
 
   // Fetch posts from Facebook API
   useEffect(() => {
@@ -42,6 +45,18 @@ const NewsEvents = () => {
     fetchPosts();
   }, []);
 
+  useEffect(() => {
+    const checkOverflow = () => {
+      const newOverflowingTitles = events.map((_, index) => {
+        const element = titleRefs.current[index];
+        return element && element.scrollHeight > element.clientHeight;
+      });
+      setOverflowingTitles(newOverflowingTitles);
+    };
+
+    checkOverflow();
+  }, [events]);
+
   const toggleCard = (index) => {
     setExpandedCardIndex(expandedCardIndex === index ? null : index);
   };
@@ -66,7 +81,19 @@ const NewsEvents = () => {
             onClick={() => toggleCard(index)}
           >
             <div className="card-content">
-              <h3 className="card-title">{event.title}</h3>
+              <h3
+                className={`card-title ${
+                  overflowingTitles[index] && expandedCardIndex !== index
+                    ? "see-more"
+                    : ""
+                }`}
+                ref={(el) => (titleRefs.current[index] = el)}
+              >
+                {event.title}
+                {overflowingTitles[index] && expandedCardIndex !== index && (
+                  <span className="see-more-text"> ... See More</span>
+                )}
+              </h3>
             </div>
             <img
               src={event.image}
