@@ -11,7 +11,7 @@ import Footer from "./components/Footer";
 
 const App = () => {
   return (
-    <Router>
+    <Router basename="/skdavaodelsur"> {/* Set the basename to match the GitHub Pages subpath */}
       <div
         className="d-flex flex-column"
         style={{
