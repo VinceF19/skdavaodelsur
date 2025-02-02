@@ -11,7 +11,7 @@ import Footer from "./components/Footer";
 
 const App = () => {
   return (
-    <Router basename="/skdavaodelsur"> {/* Set the basename to match the GitHub Pages subpath */}
+    <Router>
       <div
         className="d-flex flex-column"
         style={{
@@ -36,6 +36,7 @@ const App = () => {
             <Route path="/contact-us" element={<ContactUs />} />
           </Routes>
         </div>
+        <Footer />
       </div>
     </Router>
   );
