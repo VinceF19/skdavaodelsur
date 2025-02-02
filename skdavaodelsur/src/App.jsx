@@ -36,7 +36,6 @@ const App = () => {
             <Route path="/contact-us" element={<ContactUs />} />
           </Routes>
         </div>
-        <Footer />
       </div>
     </Router>
   );

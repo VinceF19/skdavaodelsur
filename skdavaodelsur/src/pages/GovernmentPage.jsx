@@ -32,7 +32,6 @@ const GovernmentPage = () => {
   ];
 
   const youthOrganizations = [
- 
     {
       name: "Hon. Justin Adrian F. Siao",
       title: "SK Provincial Federation President, Province of Davao Del Sur",
@@ -124,7 +123,7 @@ const GovernmentPage = () => {
       {/* Main Content */}
       <div
         style={{
-          flex: "1 0 auto",
+          flex: "1",
           margin: 0,
           padding: 0,
         }}
@@ -145,6 +144,9 @@ const GovernmentPage = () => {
       >
         <InfoBar onCategoryChange={setCategory} />
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

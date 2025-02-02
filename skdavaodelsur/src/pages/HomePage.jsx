@@ -153,9 +153,8 @@ const HomePage = () => {
             Watch Me
           </a> */}
         </div>
-      </div>
-
-     
+      </div>  
+      <Footer />   
     </div>
   );
 };
