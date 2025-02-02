@@ -13,7 +13,7 @@
 .card {
   border: 1px solid #ccc;
   background-color: #001540;
-  border-radius: 24px;
+  border-radius: 5px;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -98,12 +98,11 @@
 }
 
 .popup-content {
-  background: #001540;
+  background: #bdbdbdeb;
   padding: 20px;
-  border-radius: 12px;
-  max-width: 600px;
-  width: 90%;
-  max-height: 80vh;
+  border-radius: 5px;
+  max-width: 85vh;
+  max-height: 85vh;
   overflow-y: auto;
   text-align: center;
   position: relative;
@@ -112,7 +111,7 @@
 
 .popUpDescrip {
   padding-top: 25px;
-  color: white;
+  color: black;
 }
 
 /* Responsive Image */
@@ -120,7 +119,7 @@
   width: 100%;
   max-height: 300px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 5px;
 }
 
 /* Close Button */

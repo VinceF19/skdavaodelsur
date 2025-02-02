@@ -155,15 +155,7 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Footer */}
-      <div
-        style={{
-          flex: "0 0 auto",
-          margin: 0,
-        }}
-      >
-        <Footer />
-      </div>
+     
     </div>
   );
 };

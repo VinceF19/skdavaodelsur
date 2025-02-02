@@ -38,7 +38,7 @@ const InfoBar = ({ onCategoryChange }) => {
             }}
             onClick={() => handleCategoryChange("youth")}
           >
-            YOUTH ORGANIZATIONS
+            YOUTH OFFICIALS
           </h2>
         </div>
       </div>

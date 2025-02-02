@@ -75,7 +75,6 @@ const NewsEvents = () => {
           </div>
         ))}
       </div>
-      <Footer />
       {selectedEvent && (
         <div className="popup-overlay active" onClick={closePopup}>
           <div className="popup-content" onClick={(e) => e.stopPropagation()}>

@@ -29,6 +29,10 @@ const GovernmentPage = () => {
       address:
         "45 Oak Street, Matanao City. Expedita error nemo possimus asperiores itaque facilis magnam!",
     },
+  ];
+
+  const youthOrganizations = [
+ 
     {
       name: "Hon. Justin Adrian F. Siao",
       title: "SK Provincial Federation President, Province of Davao Del Sur",
@@ -86,7 +90,7 @@ const GovernmentPage = () => {
         "45 Oak Street, Matanao City. Expedita error nemo possimus asperiores itaque facilis magnam!",
     },
     {
-      name: "Hon. KRISTEEN PEARL D. CAHILES",
+      name: "Hon. Kristeen Pearl D. Cahiles",
       title: "SK Provincial Federation Member, Province OF Davao Del Sur",
       dob: "July 9, 1990",
       address:
@@ -98,25 +102,6 @@ const GovernmentPage = () => {
       dob: "July 9, 1990",
       address:
         "45 Oak Street, Matanao City. Expedita error nemo possimus asperiores itaque facilis magnam!",
-    },
-  ];
-
-  const youthOrganizations = [
-    {
-      name: "Matanao Youth Alliance",
-      title: "Youth Development Group",
-      contactNum: "09452634432",
-      dob: "Founded: 2015",
-      chapterPres: "Jane Doe",
-      address: "Community Hall, Matanao City",
-    },
-    {
-      name: "Green Rangers Club",
-      title: "Environmental Youth Group",
-      dob: "Founded: 2018",
-      chapterPres: "Jane Doe",
-      contactNum: "09452634432",
-      address: "Nature Park, Matanao City",
     },
   ];
 
@@ -159,16 +144,6 @@ const GovernmentPage = () => {
         }}
       >
         <InfoBar onCategoryChange={setCategory} />
-      </div>
-
-      {/* Footer */}
-      <div
-        style={{
-          flex: "0 0 auto",
-          margin: 0,
-        }}
-      >
-        <Footer />
       </div>
     </div>
   );
