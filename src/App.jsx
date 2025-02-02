@@ -7,7 +7,6 @@ import HomePage from "./pages/HomePage";
 import GovernmentPage from "./pages/GovernmentPage";
 import NewsEvents from "./pages/NewsEvent";
 import ContactUs from "./pages/ContactUs";
-import Footer from "./components/Footer";
 
 const App = () => {
   return (
