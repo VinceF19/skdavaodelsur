@@ -1,5 +1,5 @@
 import React from "react";
-import HomeBackground from "../assets/HomeBackground.png";
+import HomeBackground from "../assets/SKBG.jpeg";
 import HomeGIF from "../assets/HomeGIF.gif";
 import "./HomePage.css";
 import Footer from "../components/Footer";
