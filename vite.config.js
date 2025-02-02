@@ -1,7 +1,11 @@
 import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
 
 export default defineConfig({
-  base: '/skdavaodelsur/', // Set the base to the repository name
-  plugins: [react()],
+  build: {
+    outDir: 'dist', // output directory
+    assetsDir: 'assets', // assets folder
+    rollupOptions: {
+      input: 'index.html', // main entry point
+    },
+  },
 });
