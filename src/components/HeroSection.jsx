@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import HomeBackground from "../assets/SKBG.jpeg";
+import HomeBackground from "../assets/bgsk.jpg";
 
 const HeroSection = ({ data, category }) => {
   const [selectedPerson, setSelectedPerson] = useState(data[0]);

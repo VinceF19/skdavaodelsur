@@ -1,5 +1,5 @@
 import React from "react";
-import HomeBackground from "../assets/SKBG.jpeg";
+import HomeBackground from "../assets/bgsk.jpg";
 import HomeGIF from "../assets/HomeGIF.gif";
 import "./HomePage.css";
 import Footer from "../components/Footer";
@@ -7,31 +7,58 @@ import Footer from "../components/Footer";
 const HomePage = () => {
   return (
     <div style={{ backgroundColor: "#f8f9fa" }}>
-      {/* Header Section */}
-      <div
-        style={{
-          backgroundImage: `url(${HomeBackground})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          height: "50vh",
-          color: "#fff",
-        }}
-        className="d-flex justify-content-center align-items-center"
-      >
-        <div
-          style={{
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
-            padding: "40px",
-            borderRadius: "10px",
-            textAlign: "center",
-          }}
-        >
-          <h1 style={{ fontSize: "3rem", fontWeight: "bold" }}>
-            SK Provincial Federation
-          </h1>
-          <h2 style={{ fontSize: "2rem", marginTop: "30px" }}>Davao del Sur</h2>
-        </div>
-      </div>
+  {/* Header Section */}
+  <div
+    style={{
+      position: "relative",
+      height: "60vh",
+      color: "#fff",
+      overflow: "hidden",
+    }}
+    className="d-flex justify-content-center align-items-center"
+  >
+    {/* Background Image */}
+    <div
+      style={{
+        backgroundImage: `url(${HomeBackground})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        top: 0,
+        left: 0,
+      }}
+    ></div>
+
+    {/* Black Overlay */}
+    <div
+      style={{
+        backgroundColor: "rgba(0, 0, 0, 0.6)", // Adjust transparency here
+        position: "absolute",
+        width: "100%",
+        height: "100%",
+        top: 0,
+        left: 0,
+      }}
+    ></div>
+
+    {/* Content */}
+    <div
+      style={{
+        zIndex: 2,
+        padding: "20vh",
+        borderRadius: "10px",
+        textAlign: "center",
+      }}
+    >
+      <h1 style={{ fontSize: "3rem", fontWeight: "bold" }}>
+        SK Provincial Federation
+      </h1>
+      <h2 style={{ fontSize: "2rem", marginTop: "30px" }}>Davao del Sur</h2>
+    </div>
+  </div>
+
 
       {/* Feature and Announcement Sections */}
       <div className="container-fluid my-3">
