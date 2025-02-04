@@ -35,11 +35,11 @@ const Navbar = () => {
                   NEWS AND EVENTS
                 </Link>
               </li>
-              <li className="nav-item flex-grow-1 text-center">
+              {/* <li className="nav-item flex-grow-1 text-center">
                 <Link className="nav-link" to="/about-us">
                   ABOUT US
                 </Link>
-              </li>
+              </li> */}
               <li className="nav-item dropdown flex-grow-1 text-center">
                 <Link className="nav-link dropdown-toggle" to="/contact-us">
                   CONTACT US

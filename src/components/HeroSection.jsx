@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import HomeBackground from "../assets/HomeBackground.png";
+import HomeBackground from "../assets/bgsk.jpg";
 
 const HeroSection = ({ data, category }) => {
   const [selectedPerson, setSelectedPerson] = useState(data[0]);
@@ -38,19 +38,6 @@ const HeroSection = ({ data, category }) => {
           {category === "officials" && selectedPerson.dob && (
             <p className="lead fs-5 pt-3">
               <b>Date of Birth:</b> {selectedPerson.dob}
-            </p>
-          )}
-          <p className="lead fs-5 pt-3">
-            <b>Office Address:</b> {selectedPerson.address}
-          </p>
-          {selectedPerson.chapterPres && (
-            <p className="lead fs-5 pt-3">
-              <b>Chapter President:</b> {selectedPerson.chapterPres}
-            </p>
-          )}
-          {selectedPerson.contactNum && (
-            <p className="lead fs-5 pt-3">
-              <b>Contact Number:</b> {selectedPerson.contactNum}
             </p>
           )}
         </div>

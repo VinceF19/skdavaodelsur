@@ -98,6 +98,7 @@ const NewsEvents = () => {
           </div>
         </div>
       )}
+      <Footer />
     </div>
   );
 };

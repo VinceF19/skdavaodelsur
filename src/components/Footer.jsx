@@ -16,7 +16,7 @@ const Footer = () => {
           <div className="col-md-4 mb-3">
             <h5 className="fw-bold">SK PROVINCIAL FEDERATION</h5>
             <p className="fw-lighter lh-1">Davao del Sur</p>
-            <div className="d-flex align-items-center mb-2">
+            <div className="d-flex align-items-start mb-2">
               {/* Logo */}
               <i
                 className="fas fa-landmark"
@@ -39,7 +39,7 @@ const Footer = () => {
           </div>
 
           {/* Middle Section */}
-          <div className="col-md-4 mb-3">
+          <div className="col-md-4 mb-3" >
             <h5 className="fw-bold">Inquiries & Complaints</h5>
             <p className="lh-1 fw-lighter">
               If you have any inquiries or complaints:
