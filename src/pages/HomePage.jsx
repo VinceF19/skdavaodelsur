@@ -1,10 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import HomeBackground from "../assets/bgsk.jpg";
 import HomeGIF from "../assets/HomeGIF.gif";
 import "./HomePage.css";
 import Footer from "../components/Footer";
 
 const HomePage = () => {
+  const [posts, setPosts] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const pageId = "105656204521453";
+        const accessToken =
+          "EAAHsceBRFIABO4hzqpuZCpl5Pl3IKPJUTVyOQVxZC8c1Wec60HWQOq0ST1PGfV0lyQQFZAS4413TABwEO4fDOc5ZAluPZC1pPBzvdEMmfKYrzag2wbZAfyS3ocOloFZAjR2QoNXpkEy37g0PSZCgzBXsoDs2BsH5s5jduaZCZCZA3OoUfaFePwTZB1qJoZBpIqRpuxI8ZD";
+        const url = `https://graph.facebook.com/v17.0/${pageId}/posts?fields=message,attachments{media},permalink_url&access_token=${accessToken}`;
+
+        const response = await axios.get(url);
+
+        const fetchedPosts = response.data.data.map((post) => ({
+          title: post.message || "No Title",
+          description: post.message || "No Description",
+          image:
+            post.attachments?.data[0]?.media?.image?.src ||
+            "https://via.placeholder.com/300x200?text=Image+Not+Available",
+          url: post.permalink_url || "#",
+        }));
+
+        setPosts(fetchedPosts);
+      } catch (err) {
+        console.error("API request failed:", err.response || err.message);
+        setError("Failed to fetch Facebook posts.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
   return (
     <div style={{ backgroundColor: "#f8f9fa" }}>
       {/* Header Section */}
@@ -17,7 +53,6 @@ const HomePage = () => {
         }}
         className="d-flex justify-content-center align-items-center"
       >
-        {/* Background Image */}
         <div
           style={{
             backgroundImage: `url(${HomeBackground})`,
@@ -30,11 +65,9 @@ const HomePage = () => {
             left: 0,
           }}
         ></div>
-
-        {/* Black Overlay */}
         <div
           style={{
-            backgroundColor: "rgba(0, 0, 0, 0.6)", // Adjust transparency here
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
             position: "absolute",
             width: "100%",
             height: "100%",
@@ -42,8 +75,6 @@ const HomePage = () => {
             left: 0,
           }}
         ></div>
-
-        {/* Content */}
         <div
           style={{
             zIndex: 2,
@@ -70,28 +101,47 @@ const HomePage = () => {
             >
               Featured
             </h2>
-            <div className="d-flex overflow-auto">
-              {[1, 2, 3, 4, 5].map((item) => (
-                <div
-                  className="card mx-2"
-                  style={{ minWidth: "18rem", maxWidth: "18rem", flex: "none" }}
-                  key={item}
-                >
-                  <img
-                    src={`https://via.placeholder.com/300x200?text=Featured+${item}`}
-                    className="card-img-top"
-                    alt={`Featured ${item}`}
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">Featured Item {item}</h5>
-                    <p className="card-text">
-                      A brief description of the featured item. Placeholder
-                      content.
-                    </p>
+            {loading ? (
+              <p>Loading featured posts...</p>
+            ) : error ? (
+              <p>{error}</p>
+            ) : (
+              <div className="d-flex overflow-auto">
+                {posts.slice(0, 5).map((post, index) => (
+                  <div
+                    className="card mx-2"
+                    style={{
+                      minWidth: "18rem",
+                      maxWidth: "18rem",
+                      flex: "none",
+                    }}
+                    key={index}
+                  >
+                    <img
+                      src={post.image}
+                      className="card-img-top"
+                      alt={post.title}
+                      onError={(e) =>
+                        (e.target.src =
+                          "https://via.placeholder.com/300x200?text=Image+Not+Available")
+                      }
+                      style={{ height: "200px" }}
+                    />
+                    <div className="card-body">
+                      <h5 className="card-title">{post.title}</h5>
+                      <a
+                        href={post.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-primary mt-2"
+                      >
+                        View Post
+                      </a>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Announcements Section */}
@@ -102,36 +152,40 @@ const HomePage = () => {
             >
               Announcements
             </h2>
-            <div>
-              {[
-                {
-                  title: "Youth for Peace Event",
-                  description:
-                    "Participated in the International Day of Peace 2024.",
-                },
-                {
-                  title: "Tree Growing Activity",
-                  description:
-                    "A successful tree planting event was held on February 24, 2024.",
-                },
-              ].map((announcement, index) => (
-                <div
-                  className="card mb-3"
-                  key={index}
-                  style={{ border: "none", backgroundColor: "#f8f9fa" }}
-                >
-                  <div className="card-body">
-                    <h5 className="card-title" style={{ color: "#002855" }}>
-                      {announcement.title}
-                    </h5>
-                    <p className="card-text">{announcement.description}</p>
+            {loading ? (
+              <p>Loading announcements...</p>
+            ) : error ? (
+              <p>{error}</p>
+            ) : (
+              <div>
+                {posts.slice(5, 8).map((announcement, index) => (
+                  <div
+                    className="card mb-3"
+                    key={index}
+                    style={{ border: "none", backgroundColor: "#f8f9fa" }}
+                  >
+                    <div className="card-body">
+                      <h5 className="card-title" style={{ color: "#002855" }}>
+                        {announcement.title}
+                      </h5>
+                      <a
+                        href={announcement.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-link"
+                        style={{ color: "#002855" }}
+                      >
+                        Read More
+                      </a>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
+
       <div
         style={{
           position: "relative",
@@ -150,35 +204,9 @@ const HomePage = () => {
             backgroundImage: `url(${HomeGIF})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            // filter: "blur(25px)",
             zIndex: 1,
           }}
         ></div>
-
-        <div
-          style={{
-            position: "relative",
-            zIndex: 2,
-            textAlign: "center",
-            color: "#fff",
-            fontFamily: "'Lobster', cursive",
-          }}
-        >
-          {/* <h1 style={{ fontSize: "5rem", fontWeight: "bold" }}>Pasidungog</h1>
-          <p style={{ fontSize: "4rem", marginTop: "10px" }}>2024</p> */}
-          {/* <a
-            href="#"
-            className="btn"
-            target="_blank"
-            style={{
-              fontFamily: "Josefin Sans",
-              background: "rgba(0, 21, 64, 1)",
-              color: "white",
-            }}
-          >
-            Watch Me
-          </a> */}
-        </div>
       </div>
       <Footer />
     </div>
