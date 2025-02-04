@@ -1,13 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import HomeBackground from "../assets/HomeBackground.png";
 import HomeGIF from "../assets/HomeGIF.gif";
-import "./HomePage.css";
 import Footer from "../components/Footer";
+import "./HomePage.css";
 
 const HomePage = () => {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const pageId = "105656204521453";
+        const accessToken =
+          "EAAHsceBRFIABO4hzqpuZCpl5Pl3IKPJUTVyOQVxZC8c1Wec60HWQOq0ST1PGfV0lyQQFZAS4413TABwEO4fDOc5ZAluPZC1pPBzvdEMmfKYrzag2wbZAfyS3ocOloFZAjR2QoNXpkEy37g0PSZCgzBXsoDs2BsH5s5jduaZCZCZA3OoUfaFePwTZB1qJoZBpIqRpuxI8ZD";
+        const url = `https://graph.facebook.com/v17.0/${pageId}/posts?fields=message,attachments{media},permalink_url&access_token=${accessToken}`;
+
+        const response = await axios.get(url);
+        const posts = response.data.data.map((post) => {
+          const attachment = post.attachments?.data[0]?.media?.image?.src;
+          return {
+            title: post.message || "No Title",
+            description: post.message || "No Description",
+            image: attachment || "https://via.placeholder.com/300x200",
+            url: post.permalink_url || "#",
+          };
+        });
+
+        setEvents(posts);
+      } catch (err) {
+        console.error("API request failed:", err.response || err.message);
+        setError("Failed to fetch posts from Facebook API");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
   return (
     <div style={{ backgroundColor: "#f8f9fa" }}>
-      {/* Header Section */}
       <div
         style={{
           backgroundImage: `url(${HomeBackground})`,
@@ -33,10 +68,8 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Feature and Announcement Sections */}
       <div className="container-fluid my-3">
         <div className="row">
-          {/* Featured Section */}
           <div className="col-md-9">
             <h2
               className="text-uppercase text-white p-3 mb-4"
@@ -45,30 +78,55 @@ const HomePage = () => {
               Featured
             </h2>
             <div className="d-flex overflow-auto">
-              {[1, 2, 3, 4, 5].map((item) => (
-                <div
-                  className="card mx-2"
-                  style={{ minWidth: "18rem", maxWidth: "18rem", flex: "none" }}
-                  key={item}
-                >
-                  <img
-                    src={`https://via.placeholder.com/300x200?text=Featured+${item}`}
-                    className="card-img-top"
-                    alt={`Featured ${item}`}
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">Featured Item {item}</h5>
-                    <p className="card-text">
-                      A brief description of the featured item. Placeholder
-                      content.
-                    </p>
+              {loading ? (
+                <p>Loading featured events...</p>
+              ) : error ? (
+                <p>{error}</p>
+              ) : (
+                events.slice(0, 5).map((event, index) => (
+                  <div
+                    className="card mx-2 d-flex flex-column"
+                    style={{
+                      minWidth: "18rem",
+                      maxWidth: "18rem",
+                      flex: "none",
+                      height: "100%", // Ensure all cards have equal height
+                    }}
+                    key={index}
+                  >
+                    <img
+                      src={event.image}
+                      className="card-img-top"
+                      alt={event.title}
+                      style={{
+                        height: "200px",
+                        objectFit: "cover",
+                      }}
+                    />
+                    <div className="card-body d-flex flex-column">
+                      <h5
+                        className="card-title"
+                        style={{ flex: "1", overflow: "hidden" }}
+                      >
+                        {event.title}
+                      </h5>
+                      <div className="mt-auto">
+                        <a
+                          href={event.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn-primary w-50 mt-2"
+                        >
+                          Read More
+                        </a>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </div>
 
-          {/* Announcements Section */}
           <div className="col-md-3">
             <h2
               className="text-uppercase text-white p-3 mb-4 text-center"
@@ -77,91 +135,40 @@ const HomePage = () => {
               Announcements
             </h2>
             <div>
-              {[
-                {
-                  title: "Youth for Peace Event",
-                  description:
-                    "Participated in the International Day of Peace 2024.",
-                },
-                {
-                  title: "Tree Growing Activity",
-                  description:
-                    "A successful tree planting event was held on February 24, 2024.",
-                },
-              ].map((announcement, index) => (
-                <div
-                  className="card mb-3"
-                  key={index}
-                  style={{ border: "none", backgroundColor: "#f8f9fa" }}
-                >
-                  <div className="card-body">
-                    <h5 className="card-title" style={{ color: "#002855" }}>
-                      {announcement.title}
-                    </h5>
-                    <p className="card-text">{announcement.description}</p>
+              {loading ? (
+                <p>Loading announcements...</p>
+              ) : error ? (
+                <p>{error}</p>
+              ) : (
+                events.slice(5, 8).map((event, index) => (
+                  <div
+                    className="card mb-3"
+                    key={index}
+                    style={{ border: "none", backgroundColor: "#f8f9fa" }}
+                  >
+                    <div className="card-body ">
+                      <h5 className="card-title" style={{ color: "#002855" }}>
+                        {event.title}
+                      </h5>
+
+                      <a
+                        href={event.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-link "
+                      >
+                        Read More
+                      </a>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </div>
         </div>
       </div>
-      <div
-        style={{
-          position: "relative",
-          height: "50vh",
-          overflow: "hidden",
-        }}
-        className="d-flex justify-content-center align-items-center"
-      >
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundImage: `url(${HomeGIF})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            // filter: "blur(25px)",
-            zIndex: 1,
-          }}
-        ></div>
 
-        <div
-          style={{
-            position: "relative",
-            zIndex: 2,
-            textAlign: "center",
-            color: "#fff",
-            fontFamily: "'Lobster', cursive",
-          }}
-        >
-          {/* <h1 style={{ fontSize: "5rem", fontWeight: "bold" }}>Pasidungog</h1>
-          <p style={{ fontSize: "4rem", marginTop: "10px" }}>2024</p> */}
-          {/* <a
-            href="#"
-            className="btn"
-            target="_blank"
-            style={{
-              fontFamily: "Josefin Sans",
-              background: "rgba(0, 21, 64, 1)",
-              color: "white",
-            }}
-          >
-            Watch Me
-          </a> */}
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div
-        style={{
-          flex: "0 0 auto",
-          margin: 0,
-        }}
-      >
+      <div style={{ flex: "0 0 auto", margin: 0 }}>
         <Footer />
       </div>
     </div>
