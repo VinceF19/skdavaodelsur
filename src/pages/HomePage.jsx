@@ -42,51 +42,13 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div style={{ backgroundColor: "#f8f9fa" }}>
+    <div className="homepage-container">
       {/* Header Section */}
-      <div
-        style={{
-          position: "relative",
-          height: "60vh",
-          color: "#fff",
-          overflow: "hidden",
-        }}
-        className="d-flex justify-content-center align-items-center"
-      >
-        <div
-          style={{
-            backgroundImage: `url(${HomeBackground})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            top: 0,
-            left: 0,
-          }}
-        ></div>
-        <div
-          style={{
-            backgroundColor: "rgba(0, 0, 0, 0.6)",
-            position: "absolute",
-            width: "100%",
-            height: "100%",
-            top: 0,
-            left: 0,
-          }}
-        ></div>
-        <div
-          style={{
-            zIndex: 2,
-            padding: "20vh",
-            borderRadius: "10px",
-            textAlign: "center",
-          }}
-        >
-          <h1 style={{ fontSize: "3rem", fontWeight: "bold" }}>
-            SK Provincial Federation
-          </h1>
-          <h2 style={{ fontSize: "2rem", marginTop: "30px" }}>Davao del Sur</h2>
+      <div className="header-section">
+        <div className="header-overlay"></div>
+        <div className="header-content">
+          <h1>SK Provincial Federation</h1>
+          <h2>Davao del Sur</h2>
         </div>
       </div>
 
@@ -94,29 +56,16 @@ const HomePage = () => {
       <div className="container-fluid my-3">
         <div className="row">
           {/* Featured Section */}
-          <div className="col-md-9">
-            <h2
-              className="text-uppercase text-white p-3 mb-4"
-              style={{ backgroundColor: "#002855" }}
-            >
-              Featured
-            </h2>
+          <div className="col-lg-9 col-md-8 col-12">
+            <h2 className="section-title">Featured</h2>
             {loading ? (
               <p>Loading featured posts...</p>
             ) : error ? (
               <p>{error}</p>
             ) : (
-              <div className="d-flex overflow-auto">
-                {posts.slice(0, 5).map((post, index) => (
-                  <div
-                    className="card mx-2"
-                    style={{
-                      minWidth: "18rem",
-                      maxWidth: "18rem",
-                      flex: "none",
-                    }}
-                    key={index}
-                  >
+              <div className="featured-section">
+                {posts.slice(1, 6).map((post, index) => (
+                  <div className="featured-card" key={index}>
                     <img
                       src={post.image}
                       className="card-img-top"
@@ -125,7 +74,6 @@ const HomePage = () => {
                         (e.target.src =
                           "https://via.placeholder.com/300x200?text=Image+Not+Available")
                       }
-                      style={{ height: "200px" }}
                     />
                     <div className="card-body">
                       <h5 className="card-title">{post.title}</h5>
@@ -133,7 +81,7 @@ const HomePage = () => {
                         href={post.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn btn-primary mt-2"
+                        className="btn btn-primary"
                       >
                         View Post
                       </a>
@@ -145,69 +93,33 @@ const HomePage = () => {
           </div>
 
           {/* Announcements Section */}
-          <div className="col-md-3">
-            <h2
-              className="text-uppercase text-white p-3 mb-4 text-center"
-              style={{ backgroundColor: "#002855" }}
-            >
-              Announcements
-            </h2>
+          <div className="col-lg-3 col-md-4 col-12">
+            <h2 className="section-title text-center">Announcements</h2>
             {loading ? (
               <p>Loading announcements...</p>
             ) : error ? (
               <p>{error}</p>
             ) : (
               <div>
-                {posts.slice(5, 8).map((announcement, index) => (
-                  <div
-                    className="card mb-3"
-                    key={index}
-                    style={{ border: "none", backgroundColor: "#f8f9fa" }}
-                  >
-                    <div className="card-body">
-                      <h5 className="card-title" style={{ color: "#002855" }}>
-                        {announcement.title}
-                      </h5>
-                      <a
-                        href={announcement.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-link"
-                        style={{ color: "#002855" }}
-                      >
-                        Read More
-                      </a>
-                    </div>
+                {posts.length > 0 && (
+                  <div className="announcement-card">
+                    <h5>{posts[0].title}</h5>
+                    <a
+                      href={posts[0].url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Read More
+                    </a>
                   </div>
-                ))}
+                )}
               </div>
             )}
           </div>
         </div>
       </div>
 
-      <div
-        style={{
-          position: "relative",
-          height: "50vh",
-          overflow: "hidden",
-        }}
-        className="d-flex justify-content-center align-items-center"
-      >
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundImage: `url(${HomeGIF})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            zIndex: 1,
-          }}
-        ></div>
-      </div>
+      <div className="gif-section"></div>
       <Footer />
     </div>
   );
