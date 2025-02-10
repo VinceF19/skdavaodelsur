@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import HeroSection from "../components/HeroSection";
 import InfoBar from "../components/InfoBar";
 import Footer from "../components/Footer";
+import "./GovernmentPage.css"; // Import a CSS file for custom styles
 
 const GovernmentPage = () => {
   const [category, setCategory] = useState("officials");
@@ -33,7 +34,8 @@ const GovernmentPage = () => {
     },
     {
       name: "Hon. Patrick Dhen S. Jera",
-      title: "SK Provincial Federation Vice President, Province of Davao Del Sur",
+      title:
+        "SK Provincial Federation Vice President, Province of Davao Del Sur",
       dob: "July 9, 1990",
     },
     {
@@ -48,60 +50,29 @@ const GovernmentPage = () => {
     },
     {
       name: "Hon. Julian B. Pascua",
-      title: "SK Provincial Federation Auditor, Province OF Davao Del Sur",
+      title: "SK Provincial Federation Auditor, Province of Davao Del Sur",
       dob: "July 9, 1990",
     },
     {
       name: "Hon. Loleimer John A. Egos",
-      title: "SK Provincial Federation PRO, Province OF Davao Del Sur",
-      dob: "July 9, 1990",
-    },
-    {
-      name: "Hon. Khian A. Manzanares",
-      title: "SK Provincial Federation Sergeant-at-Arms, Province OF Davao Del Sur",
-      dob: "July 9, 1990",
-    },
-    {
-      name: "Hon. Kirt Niñeza",
-      title: "SK Provincial Federation Member, Province OF Davao Del Sur",
-      dob: "July 9, 1990",
-    },
-    {
-      name: "Hon. Kristeen Pearl D. Cahiles",
-      title: "SK Provincial Federation Member, Province OF Davao Del Sur",
-      dob: "July 9, 1990",
-    },
-    {
-      name: "Hon. Gwynteth S. Orbuda",
-      title: "SK Provincial Federation Member, Province OF Davao Del Sur",
+      title: "SK Provincial Federation PRO, Province of Davao Del Sur",
       dob: "July 9, 1990",
     },
   ];
 
-  const data = useMemo(() => {
-    return category === "officials" ? officials : youthOrganizations;
-  }, [category]);
+  const data = useMemo(
+    () => (category === "officials" ? officials : youthOrganizations),
+    [category]
+  );
 
   useEffect(() => {
     setSelectedData(data[0]);
   }, [data]);
 
   return (
-    <div
-      className="d-flex flex-column"
-      style={{
-        minHeight: "100vh",
-        margin: 0,
-      }}
-    >
-      {/* Main Content */}
-      <div
-        style={{
-          flex: "1",
-          margin: 0,
-          padding: 0,
-        }}
-      >
+    <div className="government-page">
+      {/* Hero Section */}
+      <div className="hero-section">
         <HeroSection
           data={data}
           selectedData={selectedData}
@@ -109,18 +80,15 @@ const GovernmentPage = () => {
         />
       </div>
 
-      {/* Officials and Youth Organizations */}
-      <div
-        style={{
-          flex: "0 0 auto",
-          marginBottom: 0,
-        }}
-      >
+      {/* Category Selector */}
+      <div className="category-selector">
         <InfoBar onCategoryChange={setCategory} />
       </div>
 
       {/* Footer */}
-      <Footer />
+      <div className="footer">
+        <Footer />
+      </div>
     </div>
   );
 };

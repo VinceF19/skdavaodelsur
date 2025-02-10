@@ -1,0 +1,21 @@
+/* Base styles for all screen sizes */
+.government-page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .government-page {
+    padding: 0;
+  }
+
+  .hero-section {
+    padding: 0.5rem;
+  }
+
+  .category-selector {
+    padding: 0.5rem;
+    background-color: #f0f0f0;
+  }
+}

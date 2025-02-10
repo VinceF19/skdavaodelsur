@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import HomeBackground from "../assets/bgsk.jpg";
-import HomeGIF from "../assets/HomeGIF.gif";
 import "./HomePage.css";
 import Footer from "../components/Footer";
+import PlaceHolderImage from "../assets/SKBG.jpeg";
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [modalContent, setModalContent] = useState(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -40,6 +40,13 @@ const HomePage = () => {
 
     fetchPosts();
   }, []);
+
+  // Function to truncate text
+  const truncateText = (text, maxLength) => {
+    return text.length > maxLength
+      ? text.substring(0, maxLength) + "... "
+      : text;
+  };
 
   return (
     <div className="homepage-container">
@@ -75,16 +82,16 @@ const HomePage = () => {
                           "https://via.placeholder.com/300x200?text=Image+Not+Available")
                       }
                     />
-                    <div className="card-body">
-                      <h5 className="card-title">{post.title}</h5>
-                      <a
-                        href={post.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-primary"
-                      >
-                        View Post
-                      </a>
+                    <div className="card-body p-2">
+                      <h5>{truncateText(post.title, 100)}</h5>
+                      {post.title.length > 100 && (
+                        <span
+                          className="see-more"
+                          onClick={() => setModalContent(post)}
+                        >
+                          See More
+                        </span>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -103,14 +110,15 @@ const HomePage = () => {
               <div>
                 {posts.length > 0 && (
                   <div className="announcement-card">
-                    <h5>{posts[0].title}</h5>
-                    <a
-                      href={posts[0].url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Read More
-                    </a>
+                    <h5>{truncateText(posts[0].title, 250)}</h5>
+                    {posts[0].title.length > 100 && (
+                      <span
+                        className="see-more"
+                        onClick={() => setModalContent(posts[0])}
+                      >
+                        See More
+                      </span>
+                    )}
                   </div>
                 )}
               </div>
@@ -119,7 +127,35 @@ const HomePage = () => {
         </div>
       </div>
 
-      <div className="gif-section"></div>
+      {/* Modal Popup */}
+      {modalContent && (
+        <div className="modal-overlay" onClick={() => setModalContent(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={modalContent.image}
+              className="modal-image"
+              alt={modalContent.title}
+              onError={(e) => (e.target.src = PlaceHolderImage)}
+            />
+            <h5 className="modal-title formatted-text">{modalContent.title}</h5>
+            <a
+              href={modalContent.url}
+              className="view-button"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View Full Post
+            </a>
+            <button
+              className="close-button"
+              onClick={() => setModalContent(null)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
       <Footer />
     </div>
   );

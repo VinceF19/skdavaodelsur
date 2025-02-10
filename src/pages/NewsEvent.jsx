@@ -42,6 +42,10 @@ const NewsEvents = () => {
     fetchPosts();
   }, []);
 
+  const truncateText = (text, limit) => {
+    return text.length > limit ? text.substring(0, limit) + "..." : text;
+  };
+
   const openPopup = (event) => {
     setSelectedEvent(event);
   };
@@ -62,7 +66,7 @@ const NewsEvents = () => {
     <div className="main-container">
       <div className="news-events-container">
         {events.map((event, index) => (
-          <div key={index} className="card" onClick={() => openPopup(event)}>
+          <div key={index} className="card">
             <img
               src={event.image}
               alt={event.title}
@@ -70,7 +74,18 @@ const NewsEvents = () => {
               onError={(e) => (e.target.src = "https://placehold.co/600x400")}
             />
             <div className="card-content">
-              <h3 className="card-title">{event.title}</h3>
+              <h3 className="card-title">
+                {truncateText(event.title, 80)}
+                {event.title.length > 80 && (
+                  <span
+                    className="see-more-text"
+                    onClick={() => openPopup(event)}
+                  >
+                    {" "}
+                    See More
+                  </span>
+                )}
+              </h3>
             </div>
           </div>
         ))}
