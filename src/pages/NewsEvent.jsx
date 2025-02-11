@@ -66,25 +66,22 @@ const NewsEvents = () => {
     <div className="main-container">
       <div className="news-events-container">
         {events.map((event, index) => (
-          <div key={index} className="card">
+          <div
+            key={index}
+            className="card"
+            onClick={() => openPopup(event)}
+          >
             <img
               src={event.image}
               alt={event.title}
               className="card-image"
-              onError={(e) => (e.target.src = "https://placehold.co/600x400")}
+              onError={(e) =>
+                (e.target.src = "https://placehold.co/600x400")
+              }
             />
             <div className="card-content">
               <h3 className="card-title">
                 {truncateText(event.title, 80)}
-                {event.title.length > 80 && (
-                  <span
-                    className="see-more-text"
-                    onClick={() => openPopup(event)}
-                  >
-                    {" "}
-                    See More
-                  </span>
-                )}
               </h3>
             </div>
           </div>
