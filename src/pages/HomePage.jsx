@@ -32,7 +32,7 @@ const HomePage = () => {
         setPosts(fetchedPosts);
       } catch (err) {
         console.error("API request failed:", err.response || err.message);
-        setError("Failed to fetch Facebook posts.");
+        setError("Failed to fetch Facebook posts. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -77,10 +77,7 @@ const HomePage = () => {
                       src={post.image}
                       className="card-img-top"
                       alt={post.title}
-                      onError={(e) =>
-                        (e.target.src =
-                          "https://via.placeholder.com/300x200?text=Image+Not+Available")
-                      }
+                      onError={(e) => (e.target.src = PlaceHolderImage)}
                     />
                     <div className="card-body p-2">
                       <h5>{truncateText(post.title, 100)}</h5>

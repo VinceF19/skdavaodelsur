@@ -4,10 +4,18 @@
   flex-direction: column;
 }
 
+/* Base styles for all screen sizes */
+.government-page {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Mobile-specific styles */
 @media (max-width: 768px) {
   .government-page {
     padding: 0;
+    font-size: 14px; /* Adjust font size for mobile */
+    line-height: 1.5; /* Improve line height for readability */
   }
 
   .hero-section {

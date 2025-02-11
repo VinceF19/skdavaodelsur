@@ -10,6 +10,7 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  transition: background 0.3s ease; /* Added transition for smooth background change */
 }
 
 .header-overlay {
@@ -36,6 +37,7 @@
   overflow-x: auto;
   gap: 10px;
   padding: 10px;
+  transition: transform 0.3s ease; /* Added transition for smooth scrolling */
 }
 
 .featured-card {
@@ -114,6 +116,7 @@
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
+  transition: background 0.3s ease; /* Added transition for hover effect */
 }
 
 .close-button:hover {

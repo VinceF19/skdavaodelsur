@@ -5,7 +5,7 @@ import { Navbar, Container, Nav } from "react-bootstrap";
 const MyNavbar = () => {
   const [expanded, setExpanded] = useState(false);
 
-  // On scroll, if navbar is open, close it
+  // Close the navbar on scroll if it is open.
   useEffect(() => {
     const handleScroll = () => {
       if (expanded) {
@@ -20,12 +20,13 @@ const MyNavbar = () => {
     <Navbar
       expanded={expanded}
       collapseOnSelect
-      expand="lg"
-      bg="dark"
+      expand="lg" // Collapsed on screens below "lg"
       variant="dark"
+      style={{ backgroundColor: "#001540" }}
+      className="justify-content-center"
     >
       <Container>
-        <Navbar.Brand as={Link} to="/">
+        <Navbar.Brand as={Link} to="/" onClick={() => setExpanded(false)}>
           HOME
         </Navbar.Brand>
         <Navbar.Toggle
@@ -33,7 +34,10 @@ const MyNavbar = () => {
           onClick={() => setExpanded(expanded ? false : true)}
         />
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
+          {/* 
+            Use w-100 to take full width and justify-content-evenly to space items equally
+          */}
+          <Nav className="w-100 justify-content-evenly">
             <Nav.Link
               as={Link}
               to="/government"
