@@ -85,7 +85,7 @@ const Footer = () => {
                       marginRight: "10px",
                     }}
                   ></i>{" "}
-                  facebook.com/SKFederationOfDavaoDelSur
+                  SKFederationOfDavaoDelSur
                 </a>
               </p>
             </p>

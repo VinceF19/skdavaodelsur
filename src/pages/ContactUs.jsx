@@ -28,7 +28,7 @@ const ContactUs = () => {
               rel="noopener noreferrer"
               className="social-link"
             >
-              facebook.com/SKFederationOfDavaoDelSur
+              SKFederationOfDavaoDelSur
             </a>
           </div>
         </div>
