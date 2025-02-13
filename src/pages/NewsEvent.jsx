@@ -71,6 +71,12 @@ const NewsEvents = () => {
             className="card"
             onClick={() => openPopup(event)}
           >
+            
+            <div className="card-content">
+              <h3 className="card-title">
+                {truncateText(event.title, 250)}
+              </h3>
+            </div>
             <img
               src={event.image}
               alt={event.title}
@@ -79,11 +85,6 @@ const NewsEvents = () => {
                 (e.target.src = "https://placehold.co/600x400")
               }
             />
-            <div className="card-content">
-              <h3 className="card-title">
-                {truncateText(event.title, 80)}
-              </h3>
-            </div>
           </div>
         ))}
       </div>
@@ -91,7 +92,7 @@ const NewsEvents = () => {
         <div className="popup-overlay active" onClick={closePopup}>
           <div className="popup-content" onClick={(e) => e.stopPropagation()}>
             <button className="close-button" onClick={closePopup}>
-              X
+              Close
             </button>
             <img
               src={selectedEvent.image}

@@ -8,7 +8,6 @@ const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [modalContent, setModalContent] = useState(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -19,7 +18,6 @@ const HomePage = () => {
         const url = `https://graph.facebook.com/v17.0/${pageId}/posts?fields=message,attachments{media},permalink_url&access_token=${accessToken}`;
 
         const response = await axios.get(url);
-
         const fetchedPosts = response.data.data.map((post) => ({
           title: post.message || "No Title",
           description: post.message || "No Description",
@@ -64,15 +62,15 @@ const HomePage = () => {
         <div className="row">
           {/* Featured Section */}
           <div className="col-lg-9 col-md-8 col-12">
-            <h2 className="section-title">Featured</h2>
+            <h2 className="section-title text-white">FEATURED</h2>
             {loading ? (
               <p>Loading featured posts...</p>
             ) : error ? (
               <p>{error}</p>
             ) : (
               <div className="featured-section">
-                {posts.slice(1, 6).map((post, index) => (
-                  <div className="featured-card" key={index}>
+                {posts.slice(1, 7).map((post, index) => (
+                  <div className="featured-card" key={post.id || index}>
                     <img
                       src={post.image}
                       className="card-img-top"
@@ -80,15 +78,7 @@ const HomePage = () => {
                       onError={(e) => (e.target.src = PlaceHolderImage)}
                     />
                     <div className="card-body p-2">
-                      <h5>{truncateText(post.title, 100)}</h5>
-                      {post.title.length > 100 && (
-                        <span
-                          className="see-more"
-                          onClick={() => setModalContent(post)}
-                        >
-                          See More
-                        </span>
-                      )}
+                      <h5>{truncateText(post.title, 220)}</h5>
                     </div>
                   </div>
                 ))}
@@ -98,7 +88,9 @@ const HomePage = () => {
 
           {/* Announcements Section */}
           <div className="col-lg-3 col-md-4 col-12">
-            <h2 className="section-title text-center">Announcements</h2>
+            <h2 className="section-title text-center text-white">
+              ANNOUNCEMENTS
+            </h2>
             {loading ? (
               <p>Loading announcements...</p>
             ) : error ? (
@@ -107,15 +99,7 @@ const HomePage = () => {
               <div>
                 {posts.length > 0 && (
                   <div className="announcement-card">
-                    <h5>{truncateText(posts[0].title, 250)}</h5>
-                    {posts[0].title.length > 100 && (
-                      <span
-                        className="see-more"
-                        onClick={() => setModalContent(posts[0])}
-                      >
-                        See More
-                      </span>
-                    )}
+                    <h5>{truncateText(posts[0].title, 300)}</h5>
                   </div>
                 )}
               </div>
@@ -123,35 +107,6 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-
-      {/* Modal Popup */}
-      {modalContent && (
-        <div className="modal-overlay" onClick={() => setModalContent(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={modalContent.image}
-              className="modal-image"
-              alt={modalContent.title}
-              onError={(e) => (e.target.src = PlaceHolderImage)}
-            />
-            <h5 className="modal-title formatted-text">{modalContent.title}</h5>
-            <a
-              href={modalContent.url}
-              className="view-button"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Full Post
-            </a>
-            <button
-              className="close-button"
-              onClick={() => setModalContent(null)}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
 
       <Footer />
     </div>

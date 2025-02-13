@@ -8,6 +8,7 @@ const Footer = () => {
         backgroundColor: "#001540",
         padding: "1rem 1rem",
         marginTop: "auto",
+        textAlign:"left"
       }}
     >
       <div className="container-fluid" style={{ padding: "1rem" }}>

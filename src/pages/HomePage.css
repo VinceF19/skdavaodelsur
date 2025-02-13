@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
 .homepage-container {
   background-color: #f8f9fa;
 }
 
+/* Header Section */
 .header-section {
   position: relative;
   height: 60vh;
@@ -10,14 +13,14 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  transition: background 0.3s ease; /* Added transition for smooth background change */
+  transition: background 0.3s ease;
 }
 
 .header-overlay {
-  background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
   width: 100%;
   height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .header-content {
@@ -26,18 +29,19 @@
   padding: 10vh 5vw;
 }
 
+/* Section Titles */
 .section-title {
   background-color: #002855;
   color: white;
   padding: 1rem;
 }
 
+/* Featured Cards */
 .featured-section {
   display: flex;
   overflow-x: auto;
   gap: 10px;
   padding: 10px;
-  transition: transform 0.3s ease; /* Added transition for smooth scrolling */
 }
 
 .featured-card {
@@ -47,6 +51,9 @@
   color: white;
   border-radius: 10px;
   overflow: hidden;
+  font-size: 0.8rem;
+  /* Force the Nunito font even if inline styles are present */
+  font-family: "Nunito", sans-serif !important;
 }
 
 .featured-card img {
@@ -55,83 +62,29 @@
   object-fit: cover;
 }
 
+/* Announcement Card */
 .announcement-card {
   max-height: 300px;
   overflow-y: auto;
   padding: 10px;
   margin-top: 20px;
   border: 1px solid #ddd;
-  background-color: #f9f9f9;
+  background-color: #002855;
+  color: white;
+  font-size: 0.8rem;
+  font-family: "Nunito", sans-serif !important;
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.see-more {
-  color: blue;
-  cursor: pointer;
-  text-decoration: underline;
-  margin-left: 5px;
-}
-
-.see-more:hover {
-  text-decoration: none;
-}
-
-.formatted-text {
-  white-space: pre-line;
-  word-wrap: break-word;
-}
-
-/* Modal Styling */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: #bdbdbdeb;
-  padding: 20px;
-  border-radius: 5px;
-  max-width: 80vh;
-  max-height: 90vh;
-  overflow-y: auto;
-  text-align: center;
-  position: relative;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.close-button {
-  background: #ff4d4d;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background 0.3s ease; /* Added transition for hover effect */
-}
-
-.close-button:hover {
-  background: #cc0000;
-}
-
+/* Responsive Styles */
 @media (max-width: 768px) {
   .header-content h1 {
     font-size: 1.8rem;
   }
-
   .header-content h2 {
     font-size: 1.2rem;
   }
-
   .featured-card {
     width: 200px;
   }

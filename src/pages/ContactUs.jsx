@@ -7,7 +7,7 @@ const ContactUs = () => {
       <div className="left-content">
         <h2 className="contact-title">CONTACT US</h2>
         <div className="contact-info">
-          <h5 className="section-title">Inquiries & Complaints</h5>
+          <h5 className="section-title text-white">Inquiries & Complaints</h5>
           <p className="section-description">
             If you have any inquiries or complaints:
           </p>
