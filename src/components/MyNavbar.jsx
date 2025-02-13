@@ -38,6 +38,13 @@ const MyNavbar = () => {
             Use w-100 to take full width and justify-content-evenly to space items equally
           */}
           <Nav className="w-100 justify-content-evenly">
+          <Nav.Link
+              as={Link}
+              to="/newsandevents"
+              onClick={() => setExpanded(false)}
+            >
+              NEWS AND EVENTS
+            </Nav.Link>
             <Nav.Link
               as={Link}
               to="/government"
@@ -45,13 +52,7 @@ const MyNavbar = () => {
             >
               GOVERNMENT
             </Nav.Link>
-            <Nav.Link
-              as={Link}
-              to="/newsandevents"
-              onClick={() => setExpanded(false)}
-            >
-              NEWS AND EVENTS
-            </Nav.Link>
+            
             <Nav.Link
               as={Link}
               to="/contact-us"
