@@ -8,14 +8,13 @@ const NewsEvents = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const titleRefs = useRef([]);
+  const cardRefs = useRef([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const pageId = "105656204521453";
-        const accessToken =
-          "EAAHsceBRFIABO4hzqpuZCpl5Pl3IKPJUTVyOQVxZC8c1Wec60HWQOq0ST1PGfV0lyQQFZAS4413TABwEO4fDOc5ZAluPZC1pPBzvdEMmfKYrzag2wbZAfyS3ocOloFZAjR2QoNXpkEy37g0PSZCgzBXsoDs2BsH5s5jduaZCZCZA3OoUfaFePwTZB1qJoZBpIqRpuxI8ZD";
+        const accessToken = "EAAHsceBRFIABO4hzqpuZCpl5Pl3IKPJUTVyOQVxZC8c1Wec60HWQOq0ST1PGfV0lyQQFZAS4413TABwEO4fDOc5ZAluPZC1pPBzvdEMmfKYrzag2wbZAfyS3ocOloFZAjR2QoNXpkEy37g0PSZCgzBXsoDs2BsH5s5jduaZCZCZA3OoUfaFePwTZB1qJoZBpIqRpuxI8ZD";
         const url = `https://graph.facebook.com/v17.0/${pageId}/posts?fields=message,attachments{media},permalink_url&access_token=${accessToken}`;
 
         const response = await axios.get(url);
@@ -41,6 +40,29 @@ const NewsEvents = () => {
 
     fetchPosts();
   }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    cardRefs.current.forEach((card) => {
+      if (card) observer.observe(card);
+    });
+
+    return () => {
+      cardRefs.current.forEach((card) => {
+        if (card) observer.unobserve(card);
+      });
+    };
+  }, [events]);
 
   const truncateText = (text, limit) => {
     return text.length > limit ? text.substring(0, limit) + "..." : text;
@@ -68,10 +90,10 @@ const NewsEvents = () => {
         {events.map((event, index) => (
           <div
             key={index}
-            className="card"
+            className="card hidden"
+            ref={(el) => (cardRefs.current[index] = el)}
             onClick={() => openPopup(event)}
           >
-            
             <div className="card-content">
               <h3 className="card-title">
                 {truncateText(event.title, 250)}

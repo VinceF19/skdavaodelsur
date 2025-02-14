@@ -89,3 +89,25 @@
     width: 200px;
   }
 }
+
+.header-content {
+  opacity: 0;
+  transform: translateY(-50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.header-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.featured-card.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.featured-card:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease-out;
+}
+

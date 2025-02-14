@@ -1,17 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ContactUs.css";
 
 const ContactUs = () => {
+  useEffect(() => {
+    const elements = document.querySelectorAll(".fade-in");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
+
   return (
     <div className="contact-us-container">
-      <div className="left-content">
+      {/* Left Content */}
+      <div className="left-content fade-in">
         <h2 className="contact-title">CONTACT US</h2>
         <div className="contact-info">
           <h5 className="section-title text-white">Inquiries & Complaints</h5>
           <p className="section-description">
-            If you have any inquiries or complaints:
+            If you have any inquiries or complaints, feel free to reach out!
           </p>
-          
+
           <div className="contact-detail">
             <i className="fas fa-envelope contact-icon"></i>
             <span>skdavaodelsur@gmail.com</span>
@@ -32,15 +53,16 @@ const ContactUs = () => {
             </a>
           </div>
         </div>
-
       </div>
-      <div className="form-container">
+
+      {/* Form Container */}
+      <div className="form-container fade-in">
         <iframe
           src="https://docs.google.com/forms/d/e/1FAIpQLSdxNxylkWp2ISA4zY8-0uWz1Xz6haBs6ronPcUDoJTOI4Ax_g/viewform?embedded=true"
           title="Contact Form"
           className="contact-form"
         >
-          Loading Form
+          Loading Form...
         </iframe>
       </div>
     </div>

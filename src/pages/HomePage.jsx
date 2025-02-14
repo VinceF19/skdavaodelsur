@@ -4,11 +4,32 @@ import "./HomePage.css";
 import Footer from "../components/Footer";
 import PlaceHolderImage from "../assets/SKBG.jpeg";
 
+
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const elements = document.querySelectorAll(".header-content, .featured-card, .announcement-card");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => {
+      elements.forEach((el) => observer.unobserve(el));
+    };
+  }, []);
   useEffect(() => {
     const fetchPosts = async () => {
       try {
