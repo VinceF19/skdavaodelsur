@@ -14,7 +14,7 @@ const NewsEvents = () => {
     const fetchPosts = async () => {
       try {
         const pageId = "105656204521453";
-        const accessToken = "EAAHsceBRFIABO4hzqpuZCpl5Pl3IKPJUTVyOQVxZC8c1Wec60HWQOq0ST1PGfV0lyQQFZAS4413TABwEO4fDOc5ZAluPZC1pPBzvdEMmfKYrzag2wbZAfyS3ocOloFZAjR2QoNXpkEy37g0PSZCgzBXsoDs2BsH5s5jduaZCZCZA3OoUfaFePwTZB1qJoZBpIqRpuxI8ZD";
+        const accessToken = "EAAHsceBRFIABQSeEheT5gphDfpakHWY9w9c7vufJR2EVj4miP9WF6GAHb1jBMSkQZAPx7Q6iPeZCZBZBBCOJ1obgHpfCO6ZCjcrzZCvrtC0eIiGZB6Map40stLWzLCqYzmzqZCJZCwZB1wRbX6qONkoB0rFcvjW5lEJ9MyFY6gNtnXSWdxOVuMXglH3RybozZAno4nKRFPVXUDmZBop5zBq0SQFRyaNS1Dt4iQW3JmfO0j7zCnZAQgSrRzuElp4X7lo0aGkdMuIKkvmxvObtQYxZBXlZAB4aJFLx8d4PMZAYZBbZAp3AZDZD";
         const url = `https://graph.facebook.com/v17.0/${pageId}/posts?fields=message,attachments{media},permalink_url&access_token=${accessToken}`;
 
         const response = await axios.get(url);
