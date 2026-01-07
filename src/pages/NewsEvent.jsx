@@ -17,8 +17,8 @@ const NewsEvents = () => {
     const fetchPosts = async () => {
   try {
     const pageId = "105656204521453";
-    // PASTE THE NEW TOKEN HERE 👇
-    const accessToken = "EAAHsceBRFIABQWSHrfCyEGokaHL4pjSZCrOW1ZA1EfLl0XYMMM7isXALDmWE2LVipf0TncQeZAMmFrZC4ohcB8yz6ZCOou2rWrP9F9Vd1dMrESfXLRZB537mthnLdKcYZBnrm5QcdQIjcUKlbFEqjmkzJRKE6EpsmSNZA0IhBVLSscmhPhj3AZAizDW1G2HfAnBIumAZBeYPLjEZAGNtyGZAGNRh7AS5jXvFqNOKlbAB4eoSJZAXcLXIrbkHyz7lvzzLl";
+    
+    const accessToken = import.meta.env.VITE_FB_ACCESS_TOKEN;
     
     const url = `https://graph.facebook.com/v21.0/${pageId}/posts?fields=message,attachments{media,type},permalink_url,created_time&access_token=${accessToken}`;
 

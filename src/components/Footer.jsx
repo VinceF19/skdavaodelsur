@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -104,8 +105,15 @@ const Footer = () => {
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
           </div>
+          
         </div>
-      </div>
+{/* Add this after your three columns */}
+<div className="text-center mt-3 pt-3 border-top border-secondary">
+  <Link to="/privacy" className="text-white-50 text-decoration-none small">
+    Privacy Policy
+  </Link>
+</div>      </div>
+      
     </footer>
   );
 };

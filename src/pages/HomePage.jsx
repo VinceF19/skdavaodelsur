@@ -34,8 +34,7 @@ const HomePage = () => {
     const fetchPosts = async () => {
       try {
         const pageId = "105656204521453";
-        const accessToken =
-          "EAAHsceBRFIABO4hzqpuZCpl5Pl3IKPJUTVyOQVxZC8c1Wec60HWQOq0ST1PGfV0lyQQFZAS4413TABwEO4fDOc5ZAluPZC1pPBzvdEMmfKYrzag2wbZAfyS3ocOloFZAjR2QoNXpkEy37g0PSZCgzBXsoDs2BsH5s5jduaZCZCZA3OoUfaFePwTZB1qJoZBpIqRpuxI8ZD";
+        const accessToken = import.meta.env.VITE_FB_ACCESS_TOKEN;
         const url = `https://graph.facebook.com/v17.0/${pageId}/posts?fields=message,attachments{media},permalink_url&access_token=${accessToken}`;
 
         const response = await axios.get(url);
