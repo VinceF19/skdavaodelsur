@@ -15,16 +15,15 @@ const NewsEvents = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      try {
-        const pageId = "105656204521453";
-        // ⚠️ SECURITY WARNING: In production, move this to a .env file!
-        // const accessToken = process.env.REACT_APP_FB_TOKEN; 
-        const accessToken = "EAAHsceBRFIABQSeEheT5gphDfpakHWY9w9c7vufJR2EVj4miP9WF6GAHb1jBMSkQZAPx7Q6iPeZCZBZBBCOJ1obgHpfCO6ZCjcrzZCvrtC0eIiGZB6Map40stLWzLCqYzmzqZCJZCwZB1wRbX6qONkoB0rFcvjW5lEJ9MyFY6gNtnXSWdxOVuMXglH3RybozZAno4nKRFPVXUDmZBop5zBq0SQFRyaNS1Dt4iQW3JmfO0j7zCnZAQgSrRzuElp4X7lo0aGkdMuIKkvmxvObtQYxZBXlZAB4aJFLx8d4PMZAYZBbZAp3AZDZD";
-        
-        // Updated to v21.0 for better stability
-        const url = `https://graph.facebook.com/v21.0/${pageId}/posts?fields=message,attachments{media,type},permalink_url,created_time&access_token=${accessToken}`;
+  try {
+    const pageId = "105656204521453";
+    // PASTE THE NEW TOKEN HERE 👇
+    const accessToken = "EAAHsceBRFIABQWSHrfCyEGokaHL4pjSZCrOW1ZA1EfLl0XYMMM7isXALDmWE2LVipf0TncQeZAMmFrZC4ohcB8yz6ZCOou2rWrP9F9Vd1dMrESfXLRZB537mthnLdKcYZBnrm5QcdQIjcUKlbFEqjmkzJRKE6EpsmSNZA0IhBVLSscmhPhj3AZAizDW1G2HfAnBIumAZBeYPLjEZAGNtyGZAGNRh7AS5jXvFqNOKlbAB4eoSJZAXcLXIrbkHyz7lvzzLl";
+    
+    const url = `https://graph.facebook.com/v21.0/${pageId}/posts?fields=message,attachments{media,type},permalink_url,created_time&access_token=${accessToken}`;
 
-        const response = await axios.get(url);
+    const response = await axios.get(url);
+    // ... rest of your code
 
         const posts = response.data.data.map((post) => {
           // Robust check: Does the post have media?
