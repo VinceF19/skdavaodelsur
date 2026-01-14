@@ -1,222 +1,172 @@
+/* FORCE UNIFORM FONTS AND TEXT */
+.news-events-container, 
+.news-events-container * {
+  font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+  box-sizing: border-box;
+}
+
 .main-container {
   display: block;
-  min-height: auto;
+  min-height: 100vh;
+  background-color: #f5f5f5;
 }
 
 /* News events container */
 .news-events-container {
   display: grid;
-  grid-template-columns: repeat(4, minmax(300px, 1fr));
-  gap: 20px;
-  flex-grow: 1;
-  overflow-y: auto;
-  min-height: auto;
-  overflow: visible;
-  padding: 30px;
-  background-color: #f5f5f5;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  padding: 40px 20px;
+  align-items: stretch; /* Forces all cards in a row to be the same height */
 }
 
 /* Card Styling */
 .card {
-  border: 1px solid #ccc;
+  display: flex;
+  flex-direction: column;
   background-color: #001540;
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.4s ease;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   opacity: 0;
-  transform: scale(0.9);
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(30px);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .card.visible {
   opacity: 1;
-  transform: scale(1);
+  transform: translateY(0);
 }
 
-/* Hover Animation */
+/* --- HOVER FLOATING EFFECT --- */
 .card:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-10px);
+  box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* Minimized & Expanded Styles */
-.card.minimized {
-  height: 300px;
+.card-image-wrap {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
 }
 
-.card.expanded {
-  height: auto;
-}
-
-/* Card Image */
 .card-image {
   width: 100%;
-  height: 300px;
+  height: 100%;
   object-fit: cover;
+  transition: transform 0.6s ease;
 }
 
-.card.expanded .card-image {
-  height: 300px;
+.card:hover .card-image {
+  transform: scale(1.1); /* Subtle zoom on hover */
 }
 
-/* Card Content */
+/* --- TEXT UNIFORMITY --- */
 .card-content {
-  padding: 10px;
+  padding: 20px;
+  flex-grow: 1; /* Pushes the card content to fill the card height */
+  display: flex;
+  flex-direction: column;
+  pointer-events: none; /* Clicks go through text to the card */
+}
+
+.card-date {
+  font-size: 11px;
+  font-weight: 500;
+  color: #a0aec0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
 }
 
 .card-title {
-  font-size: 14px;
-  padding: 8px 0;
-  color: white;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #ffffff;
   margin: 0;
-  overflow: hidden;
+  /* Uniform heights for titles (shows 3 lines max) */
   display: -webkit-box;
   -webkit-line-clamp: 3;
   line-clamp: 3;
   -webkit-box-orient: vertical;
-  position: relative;
+  overflow: hidden;
+  min-height: 67px; /* Matches 3 lines of text exactly */
 }
 
-.card.expanded .card-title {
-  -webkit-line-clamp: unset;
-  line-clamp: unset;
-  white-space: normal;
-}
-
-/* Card Description */
-.card-description {
-  font-size: 14px;
-  margin-top: 8px;
-  display: none;
-}
-
-.card.expanded .card-description {
-  display: block;
-}
-
-/* Fade-In Effect */
-.hidden {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 1s ease-out, transform 0.8s ease-out;
-}
-
-.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Popup Styles */
+/* --- POPUP STYLES (STAY ON TOP) --- */
 .popup-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 9999;
   padding: 20px;
-}
-
-.popup-overlay.active {
-  opacity: 1;
-  visibility: visible;
 }
 
 .popup-content {
-  background: #ffffffeb;
-  padding: 20px;
-  border-radius: 10px;
-  max-width: 80vh;
+  background: white;
+  padding: 30px;
+  border-radius: 5px;
+  max-width: 650px;
+  width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  text-align: center;
   position: relative;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.popUpDescrip {
-  padding-top: 25px;
-  color: black;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
 }
 
 .popup-image {
   width: 100%;
-  max-height: 300px;
-  object-fit: cover;
   border-radius: 10px;
+  max-height: 400px;
+  object-fit: contain;
+  background-color: #000;
 }
 
-/* Close Button */
+.popup-title {
+  color: #001540;
+  margin: 20px 0 10px 0;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.popUpDescrip {
+  color: #333;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  font-size: 1rem;
+}
+
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  background: red;
+  top: 15px;
+  right: 15px;
+  background: #ff4d4d;
   color: white;
   border: none;
-  padding: 5px 10px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
   cursor: pointer;
-  border-radius: 5px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
-/* View Button */
 .view-button {
   display: inline-block;
-  margin-top: 10px;
-  padding: 10px;
+  margin-top: 25px;
+  padding: 12px 25px;
   background: #007bff;
   color: white;
   text-decoration: none;
-  border-radius: 5px;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.view-button:hover {
-  background: #0056b3;
-  transform: scale(1.1);
-}
-
-/* Footer */
-footer {
-  position: relative;
-  width: 100%;
-  background-color: #001540;
-  color: white;
-  text-align: center;
-  padding: 20px 0;
-}
-
-/* Responsive Layout for Tablets */
-@media screen and (max-width: 1024px) {
-  .news-events-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Single Column Layout for Mobile */
-@media screen and (max-width: 768px) {
-  .news-events-container {
-    grid-template-columns: 1fr;
-    padding: 15px;
-  }
-
-  .card {
-    width: 100%;
-  }
-
-  .popup-content {
-    max-width: 90vw;
-    max-height: 85vh;
-  }
-
-  .popup-image {
-    max-height: 250px;
-  }
+  border-radius: 8px;
+  font-weight: bold;
 }

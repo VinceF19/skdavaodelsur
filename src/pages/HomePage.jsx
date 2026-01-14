@@ -4,66 +4,59 @@ import "./HomePage.css";
 import Footer from "../components/Footer";
 import PlaceHolderImage from "../assets/SKBG.jpeg";
 
-
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
+  const [latestVideo, setLatestVideo] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const elements = document.querySelectorAll(".header-content, .featured-card, .announcement-card");
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    elements.forEach((el) => observer.observe(el));
-
-    return () => {
-      elements.forEach((el) => observer.unobserve(el));
-    };
-  }, []);
-  useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchData = async () => {
       try {
         const pageId = "105656204521453";
         const accessToken = import.meta.env.VITE_FB_ACCESS_TOKEN;
-        const url = `https://graph.facebook.com/v17.0/${pageId}/posts?fields=message,attachments{media},permalink_url&access_token=${accessToken}`;
 
-        const response = await axios.get(url);
-        const fetchedPosts = response.data.data.map((post) => ({
+        // 1. Fetch Latest Video ONLY
+        const videoUrl = `https://graph.facebook.com/v17.0/${pageId}/videos?fields=description,permalink_url&limit=1&access_token=${accessToken}`;
+        
+        // 2. Fetch Regular Posts
+        const postsUrl = `https://graph.facebook.com/v17.0/${pageId}/posts?fields=message,attachments{media},permalink_url&access_token=${accessToken}`;
+
+        const [videoRes, postsRes] = await Promise.all([
+          axios.get(videoUrl),
+          axios.get(postsUrl)
+        ]);
+
+        // Process Video
+        if (videoRes.data.data.length > 0) {
+          const vid = videoRes.data.data[0];
+          setLatestVideo({
+            title: vid.description ? vid.description.split('\n')[0] : "Latest Update",
+            embedUrl: `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent("https://www.facebook.com" + vid.permalink_url)}&show_text=0`
+          });
+        }
+
+        // Process Posts
+        const fetchedPosts = postsRes.data.data.map((post) => ({
           title: post.message || "No Title",
-          description: post.message || "No Description",
-          image:
-            post.attachments?.data[0]?.media?.image?.src ||
-            "https://via.placeholder.com/300x200?text=Image+Not+Available",
+          image: post.attachments?.data[0]?.media?.image?.src || PlaceHolderImage,
           url: post.permalink_url || "#",
         }));
 
         setPosts(fetchedPosts);
       } catch (err) {
-        console.error("API request failed:", err.response || err.message);
-        setError("Failed to fetch Facebook posts. Please try again later.");
+        console.error("API Error:", err);
+        setError("Unable to load latest content.");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchPosts();
+    fetchData();
   }, []);
 
-  // Function to truncate text
   const truncateText = (text, maxLength) => {
-    return text.length > maxLength
-      ? text.substring(0, maxLength) + "... "
-      : text;
+    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
   };
 
   return (
@@ -71,62 +64,55 @@ const HomePage = () => {
       {/* Header Section */}
       <div className="header-section">
         <div className="header-overlay"></div>
-        <div className="header-content">
+        <div className="header-content visible">
           <h1>SK Provincial Federation</h1>
           <h2>Davao del Sur</h2>
         </div>
       </div>
 
-      {/* Feature and Announcement Sections */}
-      <div className="container-fluid my-3">
+      {/* Main Grid Section */}
+      <div className="container-fluid my-4">
         <div className="row">
-          {/* Featured Section */}
           <div className="col-lg-9 col-md-8 col-12">
             <h2 className="section-title text-white">FEATURED</h2>
-            {loading ? (
-              <p>Loading featured posts...</p>
-            ) : error ? (
-              <p>{error}</p>
-            ) : (
-              <div className="featured-section">
-                {posts.slice(1, 7).map((post, index) => (
-                  <div className="featured-card" key={post.id || index}>
-                    <img
-                      src={post.image}
-                      className="card-img-top"
-                      alt={post.title}
-                      onError={(e) => (e.target.src = PlaceHolderImage)}
-                    />
-                    <div className="card-body p-2">
-                      <h5>{truncateText(post.title, 220)}</h5>
-                    </div>
+            <div className="featured-section">
+              {posts.slice(0, 6).map((post, index) => (
+                <div className="featured-card visible" key={index}>
+                  <img src={post.image} alt="post" />
+                  <div className="card-body p-2">
+                    <h5>{truncateText(post.title, 150)}</h5>
                   </div>
-                ))}
-              </div>
-            )}
+                </div>
+              ))}
+            </div>
           </div>
 
-          {/* Announcements Section */}
           <div className="col-lg-3 col-md-4 col-12">
-            <h2 className="section-title text-center text-white">
-              ANNOUNCEMENTS
-            </h2>
-            {loading ? (
-              <p>Loading announcements...</p>
-            ) : error ? (
-              <p>{error}</p>
-            ) : (
-              <div>
-                {posts.length > 0 && (
-                  <div className="announcement-card">
-                    <h5>{truncateText(posts[0].title, 300)}</h5>
-                  </div>
-                )}
-              </div>
-            )}
+            <h2 className="section-title text-center text-white">ANNOUNCEMENTS</h2>
+            <div className="announcement-card">
+              {posts.length > 0 && <h5>{truncateText(posts[0].title, 300)}</h5>}
+            </div>
           </div>
         </div>
       </div>
+
+      {/* NEW FULL WIDTH VIDEO SECTION (Below Featured) */}
+      {latestVideo && (
+        <div className="full-width-video-section">
+          <div className="video-full-wrapper">
+            <iframe
+              src={latestVideo.embedUrl}
+              width="100%"
+              height="100%"
+              style={{ border: "none" }}
+              scrolling="no"
+              frameBorder="0"
+              allowFullScreen={true}
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            ></iframe>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>
