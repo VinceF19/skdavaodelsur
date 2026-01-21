@@ -98,21 +98,21 @@ const HomePage = () => {
 
       {/* NEW FULL WIDTH VIDEO SECTION (Below Featured) */}
       {latestVideo && (
-        <div className="full-width-video-section">
-          <div className="video-full-wrapper">
-            <iframe
-              src={latestVideo.embedUrl}
-              width="100%"
-              height="100%"
-              style={{ border: "none" }}
-              scrolling="no"
-              frameBorder="0"
-              allowFullScreen={true}
-              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-            ></iframe>
-          </div>
-        </div>
-      )}
+  <div className="full-width-video-section">
+    <div className="video-full-wrapper">
+      <iframe
+        /* 1. Add autoplay and mute parameters to the URL */
+        src={`${latestVideo.embedUrl}${latestVideo.embedUrl.includes('?') ? '&' : '?'}autoplay=1&mute=1`}
+        width="100%" 
+        /* 2. Change height from 100% to a specific size like 450px or 60vh */
+        style={{ border: "none", height: "450px", display: "block", margin: "0 auto" }}
+        allowFullScreen={true}
+        /* 3. Ensure 'autoplay' is in the allow string */
+        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+      ></iframe>
+    </div>
+  </div>
+)}
 
       <Footer />
     </div>

@@ -1,73 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HomeBackground from "../assets/bgsk.jpg";
 
-const HeroSection = ({ data, category }) => {
+const HeroSection = ({ data }) => {
   const [selectedPerson, setSelectedPerson] = useState(data[0]);
 
+  // Sync state when switching between categories (Officials/SK)
+  useEffect(() => {
+    setSelectedPerson(data[0]);
+  }, [data]);
+
   return (
-    <div
-      className="hero-section text-white d-flex p-4"
-      style={{
-        backgroundImage: `url(${HomeBackground})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        minHeight: "60vh",
-        position: "relative",
-      }}
-    >
-      <div
-        className="hero-overlay"
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backgroundColor: "rgba(0, 0, 0, 0.6)",
-        }}
-      ></div>
+    <div className="hero-container" style={{ backgroundImage: `url(${HomeBackground})` }}>
+      <div className="hero-overlay"></div>
 
-      <div
-        className="container d-flex align-items-center justify-content-between"
-        style={{ zIndex: 1 }}
-      >
-        <div className="text-start" style={{ flex: 2 }}>
-          <h1 className="display-3 fw-bold">{selectedPerson.name}</h1>
-          <p className="lead fs-2">{selectedPerson.title}</p>
-          {/* Conditionally render the "Date of Birth" field */}
-          {category === "officials" && selectedPerson.dob && (
-            <p className="lead fs-5 pt-3">
-              <b>Date of Birth:</b> {selectedPerson.dob}
-            </p>
-          )}
-        </div>
+      <div className="container hero-content">
+        <div className="row align-items-center">
+          
+          {/* PHOTO COLUMN */}
+          <div className="col-lg-4 col-md-5 text-center">
+            <div className="photo-frame">
+              <img 
+                src={selectedPerson.image} 
+                alt={selectedPerson.name}
+                onError={(e) => { e.target.src = "https://via.placeholder.com/400x500?text=No+Photo"; }}
+              />
+            </div>
+          </div>
 
-        <div
-          className="employee-list p-3 rounded"
-          style={{
-            flex: 1,
-            maxHeight: "400px",
-            overflowY: "auto",
-            color: "black",
-          }}
-        >
-          <ul className="list-unstyled text-white">
-            {data.map((person, index) => (
-              <li
-                key={index}
-                className={`p-2 my-2 text-center ${
-                  person.name === selectedPerson.name ? "fw-bold" : ""
-                }`}
-                style={{
-                  cursor: "pointer",
-                }}
-                onClick={() => setSelectedPerson(person)}
-              >
-                {person.name === selectedPerson.name && "→ "}
-                {person.name}
-              </li>
-            ))}
-          </ul>
+          {/* INFO COLUMN - Profession Removed */}
+          <div className="col-lg-5 col-md-7 text-white mt-4 mt-md-0">
+            <h1 className="display-4 fw-bold mb-2">{selectedPerson.name}</h1>
+            <h2 className="h3 text-warning fw-semibold">{selectedPerson.title}</h2>
+          </div>
+
+          {/* NAV COLUMN */}
+          <div className="col-lg-3 d-none d-lg-block">
+            <div className="side-nav-container">
+              <p className="text-white-50 small fw-bold mb-3 px-2">PROVINCIAL DIRECTORY</p>
+              <ul className="list-unstyled side-nav-list">
+                {data.map((person, index) => (
+                  <li 
+                    key={index}
+                    className={person.name === selectedPerson.name ? "active-item" : "inactive-item"}
+                    onClick={() => setSelectedPerson(person)}
+                  >
+                    {person.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

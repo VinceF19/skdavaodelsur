@@ -1,29 +1,82 @@
-/* Base styles for all screen sizes */
-.government-page {
+/* Hero Container Setup */
+.hero-container {
+  position: relative;
+  min-height: 85vh; /* Taller for better visual impact */
+  background-size: cover;
+  background-position: center;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
 }
 
-/* Base styles for all screen sizes */
-.government-page {
-  display: flex;
-  flex-direction: column;
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 100%);
+  z-index: 1;
 }
 
-/* Mobile-specific styles */
-@media (max-width: 768px) {
-  .government-page {
-    padding: 0;
-    font-size: 14px; /* Adjust font size for mobile */
-    line-height: 1.5; /* Improve line height for readability */
-  }
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 60px 0;
+}
 
-  .hero-section {
-    padding: 0.5rem;
-  }
+/* Image Styling */
+.photo-frame img {
+  width: 100%;
+  max-width: 380px;
+  height: 480px;
+  object-fit: cover;
+  border: 6px solid #fff;
+  border-radius: 15px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+  transition: all 0.5s ease-in-out;
+}
 
-  .category-selector {
-    padding: 0.5rem;
-    background-color: #f0f0f0;
-  }
+/* Side Navigation Styling */
+.side-nav-container {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.side-nav-list {
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+/* Custom Scrollbar */
+.side-nav-list::-webkit-scrollbar { width: 4px; }
+.side-nav-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
+.side-nav-list li {
+  padding: 10px 15px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.active-item {
+  background: #ffc107; /* Davao del Sur Gold */
+  color: #000 !important;
+  font-weight: 800;
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+}
+
+.inactive-item {
+  color: #ccc;
+}
+
+.inactive-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  padding-left: 20px;
 }
