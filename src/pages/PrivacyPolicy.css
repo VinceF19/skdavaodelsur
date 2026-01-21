@@ -1,0 +1,68 @@
+
+/* ==============================
+   PRIVACY POLICY PAGE
+================================ */
+.privacy-page {
+  background: linear-gradient(180deg, #000814, #001540);
+  min-height: 100vh;
+  padding: 4rem 1rem;
+}
+
+.privacy-container {
+  max-width: 850px;
+}
+
+.privacy-title {
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.privacy-updated {
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+.privacy-divider {
+  border-color: rgba(255, 255, 255, 0.25);
+  margin: 1.5rem 0 2rem;
+}
+
+.privacy-section {
+  margin-bottom: 2.2rem;
+}
+
+.privacy-section h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.privacy-section p,
+.privacy-section li {
+  font-weight: 300;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.privacy-section ul {
+  padding-left: 1.2rem;
+}
+
+.privacy-contact {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1.5rem;
+  border-radius: 10px;
+}
+
+/* ==============================
+   MOBILE
+================================ */
+@media (max-width: 768px) {
+  .privacy-page {
+    padding: 3rem 1rem;
+  }
+
+  .privacy-title {
+    font-size: 1.8rem;
+  }
+}

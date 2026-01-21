@@ -1,0 +1,93 @@
+/* ==============================
+   FOOTER
+================================ */
+.gov-footer {
+  background-color: #001540;
+  padding-top: 2rem;
+}
+
+.footer-inner {
+  padding: 1rem 2rem;
+}
+
+.footer-title {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.footer-subtitle {
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.footer-text {
+  font-weight: 300;
+  font-size: 0.95rem;
+}
+
+.footer-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-weight: 300;
+}
+
+.footer-icon {
+  font-size: 1.2rem;
+  margin-top: 3px;
+}
+
+.footer-link {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+.footer-copy {
+  font-size: 0.8rem;
+  opacity: 0.75;
+  margin-top: 1.5rem;
+}
+
+/* MAP */
+.footer-map {
+  width: 100%;
+  height: 200px;
+  border: 0;
+  border-radius: 8px;
+}
+
+/* BOTTOM BAR */
+.footer-bottom {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  text-align: center;
+}
+
+.footer-privacy {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.footer-privacy:hover {
+  color: white;
+}
+
+/* ==============================
+   MOBILE
+================================ */
+@media (max-width: 768px) {
+  .footer-inner {
+    padding: 1rem;
+  }
+
+  .footer-map {
+    height: 180px;
+  }
+}
