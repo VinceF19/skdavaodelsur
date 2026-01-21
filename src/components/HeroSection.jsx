@@ -61,6 +61,23 @@ const HeroSection = ({ data, selectedPerson, onSelect }) => {
                   </li>
                 ))}
               </ul>
+              {/* MOBILE SELECTOR */}
+<div className="col-12 d-lg-none">
+  <div className="mobile-selector">
+    {data.map((person) => (
+      <button
+        key={person.name}
+        className={
+          person.name === selectedPerson.name ? "active" : ""
+        }
+        onClick={() => onSelect(person)}
+      >
+        {person.name}
+      </button>
+    ))}
+  </div>
+</div>
+
             </div>
           </div>
 

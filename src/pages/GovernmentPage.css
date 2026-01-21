@@ -197,3 +197,84 @@
     max-height: 300px;
   }
 }
+/* ==============================
+   GOVERNMENT PAGE – MOBILE FIX
+================================ */
+@media (max-width: 991px) {
+
+  /* HERO STACKING */
+  .hero-container {
+    min-height: auto;
+    padding-bottom: 2rem;
+  }
+
+  .hero-content {
+    padding: 2rem 0;
+  }
+
+  .hero-content .row {
+    text-align: center;
+  }
+
+  /* IMAGE */
+  .photo-frame,
+  .transparent-frame {
+    max-width: 280px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-official-img {
+    max-height: 300px;
+  }
+
+  /* TEXT */
+  .hero-content h1 {
+    font-size: 1.7rem;
+    line-height: 1.2;
+  }
+
+  .hero-content h2 {
+    font-size: 1.1rem;
+  }
+
+  /* HIDE DESKTOP SIDE NAV */
+  .side-nav-container {
+    display: none;
+  }
+}
+
+/* ==============================
+   MOBILE SELECTOR (REPLACEMENT NAV)
+================================ */
+@media (max-width: 991px) {
+  .mobile-selector {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 0.75rem 1rem;
+    margin-top: 1.5rem;
+    scrollbar-width: none;
+  }
+
+  .mobile-selector::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-selector button {
+    flex: 0 0 auto;
+    background: rgba(255, 255, 255, 0.12);
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    transition: all 0.25s ease;
+  }
+
+  .mobile-selector button.active {
+    background: #ffc107;
+    color: #000;
+    font-weight: 700;
+  }
+}
