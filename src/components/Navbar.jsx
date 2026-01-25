@@ -1,60 +1,60 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Navbar, Container, Nav } from "react-bootstrap";
+import "./MyNavbar.css";
 
 const MyNavbar = () => {
   const [expanded, setExpanded] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
-  // On scroll, if navbar is open, close it
   useEffect(() => {
-    const handleScroll = () => {
-      if (expanded) {
-        setExpanded(false);
-      }
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+      if (expanded) setExpanded(false);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, [expanded]);
 
   return (
     <Navbar
-      expanded={expanded}
-      collapseOnSelect
       expand="lg"
-      bg="dark"
-      variant="dark"
+      expanded={expanded}
+      className={`modern-navbar ${scrolled ? "scrolled" : ""}`}
+      fixed="top"
     >
       <Container>
-        <Navbar.Brand as={Link} to="/">
-          HOME
+        <Navbar.Brand as={Link} to="/" className="brand">
+          <span className="brand-mark">SK</span>
+          <span className="brand-text">Provincial Federation</span>
         </Navbar.Brand>
+
         <Navbar.Toggle
-          aria-controls="responsive-navbar-nav"
-          onClick={() => setExpanded(expanded ? false : true)}
+          className="custom-toggler"
+          onClick={() => setExpanded(!expanded)}
         />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link
-              as={Link}
-              to="/government"
-              onClick={() => setExpanded(false)}
-            >
-              GOVERNMENT
-            </Nav.Link>
-            <Nav.Link
-              as={Link}
-              to="/newsandevents"
-              onClick={() => setExpanded(false)}
-            >
-              NEWS AND EVENTS
-            </Nav.Link>
-            <Nav.Link
-              as={Link}
-              to="/contact-us"
-              onClick={() => setExpanded(false)}
-            >
-              CONTACT US
-            </Nav.Link>
+
+        <Navbar.Collapse>
+          <Nav className="ms-auto nav-links">
+            {[
+              { name: "Home", path: "/" },
+              { name: "Government", path: "/government" },
+              { name: "News & Events", path: "/newsandevents" },
+              { name: "Contact", path: "/contact-us" }
+            ].map((item) => (
+              <Nav.Link
+                as={Link}
+                key={item.path}
+                to={item.path}
+                onClick={() => setExpanded(false)}
+                className={
+                  location.pathname === item.path ? "active" : ""
+                }
+              >
+                {item.name}
+              </Nav.Link>
+            ))}
           </Nav>
         </Navbar.Collapse>
       </Container>

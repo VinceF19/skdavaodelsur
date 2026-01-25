@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./HomePage.css";
+import { Play, ArrowRight, Calendar, Bell, ChevronRight, Loader2 } from "lucide-react";
 import Footer from "../components/Footer";
 import PlaceHolderImage from "../assets/SKBG.jpeg";
+import "./HomePage.css";
 
 const HomePage = () => {
-  const [posts, setPosts] = useState([]);
+  const [heroPost, setHeroPost] = useState(null);
+  const [gridPosts, setGridPosts] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
   const [latestVideo, setLatestVideo] = useState(null);
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,37 +18,40 @@ const HomePage = () => {
         const pageId = "105656204521453";
         const accessToken = import.meta.env.VITE_FB_ACCESS_TOKEN;
 
-        // 1. Fetch Latest Video ONLY
-        const videoUrl = `https://graph.facebook.com/v17.0/${pageId}/videos?fields=description,permalink_url&limit=1&access_token=${accessToken}`;
-        
-        // 2. Fetch Regular Posts
-        const postsUrl = `https://graph.facebook.com/v17.0/${pageId}/posts?fields=message,attachments{media},permalink_url&access_token=${accessToken}`;
+        // Fetch Data
+        const videoUrl = `https://graph.facebook.com/v17.0/${pageId}/videos?fields=description,permalink_url,created_time&limit=1&access_token=${accessToken}`;
+        const postsUrl = `https://graph.facebook.com/v17.0/${pageId}/posts?fields=message,attachments{media},created_time,permalink_url&limit=12&access_token=${accessToken}`;
 
         const [videoRes, postsRes] = await Promise.all([
           axios.get(videoUrl),
           axios.get(postsUrl)
         ]);
 
-        // Process Video
+        // 1. Setup Video
         if (videoRes.data.data.length > 0) {
           const vid = videoRes.data.data[0];
           setLatestVideo({
-            title: vid.description ? vid.description.split('\n')[0] : "Latest Update",
+            title: vid.description ? vid.description.split('\n')[0] : "Official Broadcast",
             embedUrl: `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent("https://www.facebook.com" + vid.permalink_url)}&show_text=0`
           });
         }
 
-        // Process Posts
-        const fetchedPosts = postsRes.data.data.map((post) => ({
-          title: post.message || "No Title",
+        // 2. Setup Posts (Filter out posts without images if you want cleaner look)
+        const allPosts = postsRes.data.data.map((post) => ({
+          title: post.message || "Official Update",
           image: post.attachments?.data[0]?.media?.image?.src || PlaceHolderImage,
           url: post.permalink_url || "#",
+          date: new Date(post.created_time).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
         }));
 
-        setPosts(fetchedPosts);
+        if (allPosts.length > 0) {
+          setHeroPost(allPosts[0]);          // #1 Post (Big Hero)
+          setGridPosts(allPosts.slice(1, 5)); // #2-5 Posts (Grid)
+          setAnnouncements(allPosts.slice(5, 10)); // #6-10 (Text list)
+        }
+
       } catch (err) {
         console.error("API Error:", err);
-        setError("Unable to load latest content.");
       } finally {
         setLoading(false);
       }
@@ -55,69 +60,120 @@ const HomePage = () => {
     fetchData();
   }, []);
 
-  const truncateText = (text, maxLength) => {
-    return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+  // Helper to trim text safely
+  const trimText = (text, len) => {
+    if (!text) return "";
+    return text.length > len ? text.substring(0, len) + "..." : text;
   };
 
+  if (loading) return (
+    <div className="loader-container">
+      <Loader2 className="spinner" size={60} />
+    </div>
+  );
+
   return (
-    <div className="homepage-container">
-      {/* Header Section */}
-      <div className="header-section">
-        <div className="header-overlay"></div>
-        <div className="header-content visible">
+    <div className="modern-home">
+      {/* 1. HERO HEADER */}
+      <header className="hero-header">
+        <div className="hero-bg-overlay"></div>
+        <div className="hero-content container">
+          <div className="badge-pill">OFFICIAL PORTAL</div>
           <h1>SK Provincial Federation</h1>
           <h2>Davao del Sur</h2>
-        </div>
-      </div>
-
-      {/* Main Grid Section */}
-      <div className="container-fluid my-4">
-        <div className="row">
-          <div className="col-lg-9 col-md-8 col-12">
-            <h2 className="section-title text-white">FEATURED</h2>
-            <div className="featured-section">
-              {posts.slice(0, 6).map((post, index) => (
-                <div className="featured-card visible" key={index}>
-                  <img src={post.image} alt="post" />
-                  <div className="card-body p-2">
-                    <h5>{truncateText(post.title, 150)}</h5>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="col-lg-3 col-md-4 col-12">
-            <h2 className="section-title text-center text-white">ANNOUNCEMENTS</h2>
-            <div className="announcement-card">
-              {posts.length > 0 && <h5>{truncateText(posts[0].title, 300)}</h5>}
-            </div>
+          <div className="hero-stats">
+            <span><strong>Est. 2024</strong> Youth Leadership</span>
+            <span className="dot"></span>
+            <span><strong>Active</strong> Federation</span>
           </div>
         </div>
-      </div>
+      </header>
 
-      {/* NEW FULL WIDTH VIDEO SECTION (Below Featured) */}
-      {/* Optimized Video Section */}
-      {latestVideo && (
-        <div className="full-width-video-section">
-          {/* This header adds a professional touch above the full-width vid */}
-          <div className="video-full-header">
-            <span className="live-dot"></span>
-            LATEST VIDEO UPDATE
-          </div>
+      {/* 2. MAIN BENTO GRID */}
+      <div className="container main-layout">
+        <div className="bento-grid">
           
-          <div className="video-full-wrapper">
-            <iframe
-              src={`${latestVideo.embedUrl}${latestVideo.embedUrl.includes('?') ? '&' : '?'}autoplay=1&mute=1`}
-              title="FB Video"
-              allowFullScreen={true}
-              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-            ></iframe>
-          </div>
-        </div>
-      )}
+          {/* A. MAIN STORY (Takes up 2 columns) */}
+          {heroPost && (
+            <a href={heroPost.url} target="_blank" rel="noreferrer" className="bento-item hero-item">
+              <div className="img-zoom-container">
+                <img src={heroPost.image} alt="Hero" />
+                <div className="gradient-overlay"></div>
+              </div>
+              <div className="content-overlay">
+                <span className="date-tag"><Calendar size={12} /> {heroPost.date}</span>
+                <h3>{trimText(heroPost.title, 120)}</h3>
+                <button className="action-btn">Read Story <ArrowRight size={14} /></button>
+              </div>
+            </a>
+          )}
 
-      <br />
+         {/* B. SIDEBAR LIST (Announcements) */}
+<div className="bento-item announcement-panel">
+
+  <div className="panel-head">
+    <Bell size={18} fill="#eab308" stroke="none" />
+    <span>Latest Bulletins</span>
+  </div>
+
+  <div className="scrollable-list">
+    {announcements.map((item, idx) => (
+      <a
+        href={item.url}
+        key={idx}
+        target="_blank"
+        rel="noreferrer"
+        className="bulletin-row"
+      >
+        <div className="bulletin-meta">
+          <span className="bulletin-date">{item.date}</span>
+        </div>
+        <p className="bulletin-title">{trimText(item.title, 60)}</p>
+      </a>
+    ))}
+  </div>
+</div>
+
+
+          {/* C. SECONDARY GRID (4 smaller cards) */}
+          {gridPosts.map((post, idx) => (
+            <a href={post.url} key={idx} target="_blank" rel="noreferrer" className="bento-item standard-card">
+              <div className="card-img">
+                <img src={post.image} alt="Post" />
+              </div>
+              <div className="card-text">
+                <span className="tiny-date">{post.date}</span>
+                <h4>{trimText(post.title, 55)}</h4>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+
+
+      {/* 3. CINEMATIC VIDEO SECTION */}
+      {latestVideo && (
+        <section className="cinema-section">
+          <div className="container">
+            <div className="cinema-header">
+              <div className="live-badge">
+                <span className="pulse"></span> LIVE BROADCAST
+              </div>
+              <h3>{trimText(latestVideo.title, 80)}</h3>
+            </div>
+            
+            <div className="cinema-screen">
+              <iframe
+                src={`${latestVideo.embedUrl}&autoplay=0&mute=0`}
+                title="Latest Video"
+                allowFullScreen={true}
+                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+              ></iframe>
+            </div>
+          </div>
+        </section>
+      )}
 
       <Footer />
     </div>

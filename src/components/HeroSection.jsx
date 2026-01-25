@@ -1,5 +1,6 @@
 import React from "react";
 import HomeBackground from "../assets/bgsk.jpg";
+import "./HeroSection.css";
 
 const HeroSection = ({ data, selectedPerson, onSelect }) => {
   if (!selectedPerson) return null;
@@ -7,83 +8,72 @@ const HeroSection = ({ data, selectedPerson, onSelect }) => {
   const isProvincial = selectedPerson.type === "provincial";
 
   return (
-    <div
-      className="hero-container"
+    <section
+      className="official-hero"
       style={{ backgroundImage: `url(${HomeBackground})` }}
     >
-      <div className="hero-overlay" />
+      <div className="official-overlay" />
 
-      <div className="container hero-content">
-        <div className="row align-items-center">
+      <div className="container official-grid">
 
-          {/* PHOTO */}
-          <div className="col-lg-4 col-md-5 text-center">
-            <div className={isProvincial ? "transparent-frame" : "photo-frame"}>
-              <img
-                src={selectedPerson.image}
-                alt={selectedPerson.name}
-                className="hero-official-img"
-                loading="lazy"
-                onError={(e) =>
-                  (e.target.src =
-                    "https://via.placeholder.com/400x500?text=No+Photo")
-                }
-              />
-            </div>
+        {/* PHOTO */}
+        <div className="official-photo">
+          <div className={isProvincial ? "glass-frame" : "photo-frame"}>
+            <img
+              src={selectedPerson.image}
+              alt={selectedPerson.name}
+              loading="lazy"
+              onError={(e) =>
+                (e.target.src =
+                  "https://via.placeholder.com/400x520?text=No+Photo")
+              }
+            />
           </div>
-
-          {/* INFO */}
-          <div className="col-lg-5 col-md-7 text-white mt-4 mt-md-0">
-            <h1 className="display-4 fw-bold">{selectedPerson.name}</h1>
-            <h2 className="h3 text-warning fw-semibold">
-              {selectedPerson.title}
-            </h2>
-          </div>
-
-          {/* SIDE NAV */}
-          <div className="col-lg-3 d-none d-lg-block">
-            <div className="side-nav-container">
-              <p className="text-white-50 small fw-bold mb-3 px-2">
-                DIRECTORY
-              </p>
-              <ul className="list-unstyled side-nav-list">
-                {data.map((person) => (
-                  <li
-                    key={person.name}
-                    className={
-                      person.name === selectedPerson.name
-                        ? "active-item"
-                        : "inactive-item"
-                    }
-                    onClick={() => onSelect(person)}
-                  >
-                    {person.name}
-                  </li>
-                ))}
-              </ul>
-              {/* MOBILE SELECTOR */}
-<div className="col-12 d-lg-none">
-  <div className="mobile-selector">
-    {data.map((person) => (
-      <button
-        key={person.name}
-        className={
-          person.name === selectedPerson.name ? "active" : ""
-        }
-        onClick={() => onSelect(person)}
-      >
-        {person.name}
-      </button>
-    ))}
-  </div>
-</div>
-
-            </div>
-          </div>
-
         </div>
+
+        {/* INFO */}
+        <div className="official-info">
+          <h1>{selectedPerson.name}</h1>
+          <h2>{selectedPerson.title}</h2>
+        </div>
+
+        {/* DESKTOP DIRECTORY */}
+        <aside className="official-directory">
+          <p className="directory-label">DIRECTORY</p>
+          <ul>
+            {data.map((person) => (
+              <li
+                key={person.name}
+                className={
+                  person.name === selectedPerson.name
+                    ? "active"
+                    : ""
+                }
+                onClick={() => onSelect(person)}
+              >
+                {person.name}
+              </li>
+            ))}
+          </ul>
+        </aside>
+
       </div>
-    </div>
+
+      {/* MOBILE SELECTOR */}
+      <div className="mobile-selector">
+        {data.map((person) => (
+          <button
+            key={person.name}
+            className={
+              person.name === selectedPerson.name ? "active" : ""
+            }
+            onClick={() => onSelect(person)}
+          >
+            {person.name}
+          </button>
+        ))}
+      </div>
+    </section>
   );
 };
 
