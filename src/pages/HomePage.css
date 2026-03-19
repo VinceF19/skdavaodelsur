@@ -182,8 +182,12 @@
 /* ============================================================
    BENTO GRID
 ============================================================ */
+/* Pulled up so cards float into/over the hero wave */
 .main-layout {
-  padding: 44px 28px 80px;
+  margin-top: -80px;
+  position: relative;
+  z-index: 10;
+  padding: 0 28px 80px;
 }
 
 .bento-grid {
@@ -515,6 +519,78 @@
   .hero-card-body  { padding: 24px; }
   .hero-card-body h3 { max-width: 100%; }
   .post-card       { grid-column: span 4; }
-  .main-layout     { padding: 32px 16px 60px; }
+  .main-layout     { margin-top: -40px; padding: 0 16px 60px; }
   .video-header    { flex-direction: column; align-items: flex-start; }
+}
+
+/* ============================================================
+   SKELETON / SHIMMER  (shown when API data hasn't loaded)
+============================================================ */
+
+/* Base shimmer block */
+.sk-block {
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    #e2e8f0 25%,
+    #f1f5f9 50%,
+    #e2e8f0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%   { background-position:  200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Hero card skeleton — fills the card with an absolute block (mirrors gradient overlay) */
+.hero-card-skeleton { pointer-events: none; }
+
+.hero-card-skeleton > .sk-fill {
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+}
+
+/* Generic full-fill helper (for other usages) */
+.sk-fill {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+}
+
+/* Inside hero-card-body (absolute positioned) */
+.hero-card-skeleton .hero-card-body { gap: 14px; display: flex; flex-direction: column; }
+
+.sk-chip  { width: 80px;  height: 22px; border-radius: 4px; }
+.sk-title { width: 90%;   height: 28px; border-radius: 6px; }
+.sk-btn   { width: 120px; height: 38px; border-radius: 999px; }
+
+/* Post-card skeleton image area */
+.post-card .sk-fill {
+  height: 168px;              /* same as .post-card-img */
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Generic text line */
+.sk-line {
+  width: 100%;
+  height: 14px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+.sk-line:last-child { margin-bottom: 0; }
+
+/* Bulletin skeleton rows */
+.bulletins-skeleton {
+  padding: 4px 0;
+}
+.bulletins-skeleton .bulletin-item {
+  pointer-events: none;
+  gap: 6px;
 }

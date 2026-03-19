@@ -5,18 +5,23 @@ import Footer from "../components/Footer";
 import PlaceholderImage from "../assets/SKBG.jpeg";
 import "./HomePage.css";
 
-const API_URL = "http://localhost:3000/api/fbContent";
+// Same pattern as NewsEvent.jsx — call Facebook Graph API directly (no server needed)
+const PAGE_ID      = "105656204521453";
+const ACCESS_TOKEN = import.meta.env.VITE_FB_ACCESS_TOKEN;
 
-/* ─── Helpers ─────────────────────────────────────────── */
+const FB_POSTS_URL  = `https://graph.facebook.com/v21.0/${PAGE_ID}/posts?fields=message,attachments{media},created_time,permalink_url&limit=12&access_token=${ACCESS_TOKEN}`;
+const FB_VIDEOS_URL = `https://graph.facebook.com/v21.0/${PAGE_ID}/videos?fields=description,permalink_url,created_time&limit=1&access_token=${ACCESS_TOKEN}`;
+
+/* ─── Helpers ────────────────────────────────────────────── */
 
 const trimText = (text, maxLen) => {
   if (!text) return "";
   return text.length > maxLen ? text.slice(0, maxLen) + "…" : text;
 };
 
-const formatPost = (post, fallback) => ({
+const formatPost = (post) => ({
   title: post.message || "Official Update",
-  image: post.attachments?.data[0]?.media?.image?.src || fallback,
+  image: post.attachments?.data[0]?.media?.image?.src || PlaceholderImage,
   url:   post.permalink_url || "#",
   date:  new Date(post.created_time).toLocaleDateString("en-US", {
     month: "short",
@@ -24,7 +29,9 @@ const formatPost = (post, fallback) => ({
   }),
 });
 
-/* ─── Page ─────────────────────────────────────────────── */
+const EMPTY_POSTS = Array(4).fill(null);
+
+/* ─── Page ───────────────────────────────────────────────── */
 
 const HomePage = () => {
   const [heroPost,      setHeroPost]      = useState(null);
@@ -36,9 +43,14 @@ const HomePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(API_URL);
-        const posts  = (data.posts  || []).map((p) => formatPost(p, PlaceholderImage));
-        const videos =  data.videos || [];
+        // Fetch posts + videos in parallel — same as NewsEvent.jsx pattern
+        const [postsRes, videosRes] = await Promise.all([
+          axios.get(FB_POSTS_URL),
+          axios.get(FB_VIDEOS_URL),
+        ]);
+
+        const posts  = (postsRes.data.data  || []).map(formatPost);
+        const videos =  videosRes.data.data || [];
 
         if (posts.length) {
           setHeroPost(posts[0]);
@@ -56,7 +68,7 @@ const HomePage = () => {
           });
         }
       } catch (err) {
-        console.error("API Error:", err);
+        console.error("FB API Error:", err);
       } finally {
         setLoading(false);
       }
@@ -73,11 +85,19 @@ const HomePage = () => {
 
       <main className="hp-container main-layout">
         <div className="bento-grid">
-          {heroPost && <HeroCard post={heroPost} />}
+
+          {heroPost
+            ? <HeroCard post={heroPost} />
+            : <HeroCardSkeleton />}
+
           <AnnouncementPanel items={announcements} />
-          {gridPosts.map((post, i) => (
-            <PostCard key={i} post={post} index={i} />
-          ))}
+
+          {(gridPosts.length ? gridPosts : EMPTY_POSTS).map((post, i) =>
+            post
+              ? <PostCard         key={i} post={post} index={i} />
+              : <PostCardSkeleton key={i} index={i} />
+          )}
+
         </div>
       </main>
 
@@ -88,7 +108,7 @@ const HomePage = () => {
   );
 };
 
-/* ─── Sub-components ────────────────────────────────────── */
+/* ─── Real components ─────────────────────────────────────── */
 
 const LoadingScreen = () => (
   <div className="loader-screen">
@@ -101,10 +121,8 @@ const LoadingScreen = () => (
 
 const HeroHeader = () => (
   <header className="hero-header">
-    {/* Decorative ambient blobs */}
     <div className="hero-orb orb-gold" />
     <div className="hero-orb orb-blue" />
-
     <div className="hero-content">
       <div className="badge-pill">OFFICIAL PORTAL</div>
       <h1 className="hero-title">SK Provincial Federation</h1>
@@ -115,7 +133,6 @@ const HeroHeader = () => (
         <span><strong>Active</strong> Federation</span>
       </div>
     </div>
-
     <div className="hero-wave" />
   </header>
 );
@@ -143,12 +160,14 @@ const AnnouncementPanel = ({ items }) => (
       <span>Latest Bulletins</span>
     </div>
     <div className="bulletin-list">
-      {items.map((item, i) => (
-        <a key={i} href={item.url} target="_blank" rel="noreferrer" className="bulletin-item">
-          <span className="bulletin-date">{item.date}</span>
-          <p>{trimText(item.title, 65)}</p>
-        </a>
-      ))}
+      {items.length > 0
+        ? items.map((item, i) => (
+            <a key={i} href={item.url} target="_blank" rel="noreferrer" className="bulletin-item">
+              <span className="bulletin-date">{item.date}</span>
+              <p>{trimText(item.title, 65)}</p>
+            </a>
+          ))
+        : <BulletinsSkeleton />}
     </div>
   </div>
 );
@@ -190,6 +209,43 @@ const VideoSection = ({ video }) => (
       </div>
     </div>
   </section>
+);
+
+/* ─── Skeleton placeholders ───────────────────────────────── */
+
+const HeroCardSkeleton = () => (
+  <div className="bento-card hero-card hero-card-skeleton">
+    <div className="sk-block sk-fill" />
+    <div className="hero-card-body">
+      <div className="sk-block sk-chip" />
+      <div className="sk-block sk-title" />
+      <div className="sk-block sk-title" style={{ width: "62%" }} />
+      <div className="sk-block sk-btn" />
+    </div>
+  </div>
+);
+
+const PostCardSkeleton = ({ index }) => (
+  <div className="bento-card post-card" style={{ animationDelay: `${index * 80}ms` }}>
+    <div className="post-card-img sk-block sk-fill" />
+    <div className="post-card-body">
+      <div className="sk-block sk-line" style={{ width: "32%" }} />
+      <div className="sk-block sk-line" />
+      <div className="sk-block sk-line" style={{ width: "78%" }} />
+    </div>
+  </div>
+);
+
+const BulletinsSkeleton = () => (
+  <div className="bulletins-skeleton">
+    {Array(5).fill(null).map((_, i) => (
+      <div key={i} className="bulletin-item">
+        <div className="sk-block sk-line" style={{ width: "28%", marginBottom: 8 }} />
+        <div className="sk-block sk-line" />
+        <div className="sk-block sk-line" style={{ width: "85%" }} />
+      </div>
+    ))}
+  </div>
 );
 
 export default HomePage;
