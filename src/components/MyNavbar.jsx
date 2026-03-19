@@ -1,65 +1,68 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Navbar, Container, Nav } from "react-bootstrap";
+import "./MyNavbar.css";
+
+const NAV_LINKS = [
+  { to: "/newsandevents", label: "News & Events" },
+  { to: "/government",    label: "Government"    },
+  { to: "/contact-us",    label: "Contact Us"    },
+];
 
 const MyNavbar = () => {
   const [expanded, setExpanded] = useState(false);
+  const [scrolled,  setScrolled]  = useState(false);
+  const location = useLocation();
 
-  // Close the navbar on scroll if it is open.
+  // Collapse on scroll
   useEffect(() => {
-    const handleScroll = () => {
-      if (expanded) {
-        setExpanded(false);
-      }
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+      if (expanded) setExpanded(false);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, [expanded]);
+
+  // Collapse on route change
+  useEffect(() => {
+    setExpanded(false);
+  }, [location.pathname]);
 
   return (
     <Navbar
       expanded={expanded}
-      collapseOnSelect
-      expand="lg" // Collapsed on screens below "lg"
-      variant="dark"
-      style={{ backgroundColor: "#001540" }}
-      className="justify-content-center"
+      expand="lg"
+      className={`site-navbar${scrolled ? " scrolled" : ""}`}
     >
       <Container>
-        <Navbar.Brand as={Link} to="/" onClick={() => setExpanded(false)}>
-          HOME
+        {/* Brand */}
+        <Navbar.Brand as={Link} to="/" className="nav-brand" onClick={() => setExpanded(false)}>
+          <span className="nav-brand-title">SK</span>
+          <span className="nav-brand-sub">Davao del Sur</span>
         </Navbar.Brand>
+
+        {/* Mobile toggle */}
         <Navbar.Toggle
-          aria-controls="responsive-navbar-nav"
-          onClick={() => setExpanded(expanded ? false : true)}
+          aria-controls="main-nav"
+          className="nav-toggle"
+          onClick={() => setExpanded(!expanded)}
         />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          {/* 
-            Use w-100 to take full width and justify-content-evenly to space items equally
-          */}
-          <Nav className="w-100 justify-content-evenly">
-          <Nav.Link
-              as={Link}
-              to="/newsandevents"
-              onClick={() => setExpanded(false)}
-            >
-              NEWS AND EVENTS
-            </Nav.Link>
-            <Nav.Link
-              as={Link}
-              to="/government"
-              onClick={() => setExpanded(false)}
-            >
-              GOVERNMENT
-            </Nav.Link>
-            
-            <Nav.Link
-              as={Link}
-              to="/contact-us"
-              onClick={() => setExpanded(false)}
-            >
-              CONTACT US
-            </Nav.Link>
+
+        {/* Links */}
+        <Navbar.Collapse id="main-nav">
+          <Nav className="ms-auto nav-links-list">
+            {NAV_LINKS.map(({ to, label }) => (
+              <Nav.Link
+                key={to}
+                as={Link}
+                to={to}
+                className={`nav-link-item${location.pathname === to ? " active" : ""}`}
+                onClick={() => setExpanded(false)}
+              >
+                {label}
+              </Nav.Link>
+            ))}
           </Nav>
         </Navbar.Collapse>
       </Container>

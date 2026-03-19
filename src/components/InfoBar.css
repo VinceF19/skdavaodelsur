@@ -1,0 +1,45 @@
+/* ============================================================
+   INFO BAR — Category switcher tabs
+============================================================ */
+
+.info-bar {
+  display: flex;
+  background: var(--surface);
+  border-bottom: 2px solid var(--border);
+}
+
+.info-bar-btn {
+  flex: 1;
+  padding: 18px 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;          /* sits on top of the nav border */
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.info-bar-btn:hover {
+  color: var(--text);
+  background: var(--surface-alt);
+}
+
+.info-bar-btn.active {
+  color: var(--navy-900);
+  border-bottom-color: var(--gold);
+  background: transparent;
+}
+
+@media (max-width: 480px) {
+  .info-bar-btn {
+    padding: 14px 12px;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+  }
+}
